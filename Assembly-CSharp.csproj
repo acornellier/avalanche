@@ -37,6 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets/Scripts/Player.cs" />
+     <Compile Include="Assets/Scripts/MyCamera.cs" />
+     <Compile Include="Assets/Scripts/GameUI.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/Unity/Hub/Editor/2020.3.22f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -622,6 +624,9 @@
     <Reference Include="Unity.2D.Tilemap.Editor">
         <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="com.unity.quicksearch">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/com.unity.quicksearch.dll</HintPath>
+    </Reference>
     <Reference Include="PsdPlugin">
         <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
     </Reference>
@@ -696,9 +701,6 @@
     </Reference>
     <Reference Include="Unity.2D.SpriteShape.Runtime">
         <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.quicksearch">
-        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/com.unity.quicksearch.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
