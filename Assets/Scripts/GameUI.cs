@@ -6,8 +6,16 @@ public class GameUI : MonoBehaviour
     public Text heightText;
     public Transform player;
 
+    float initialHeight;
+
+    void Start()
+    {
+        initialHeight = player.position.y;
+    }
+
     void Update()
     {
-        heightText.text = $"{Mathf.Round(player.position.y)}ft";
+        var curHeight = Mathf.Round(player.position.y - initialHeight);
+        heightText.text = $"{curHeight}ft";
     }
 }
