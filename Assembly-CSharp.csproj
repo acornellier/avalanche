@@ -39,8 +39,9 @@
      <Compile Include="Assets/Scripts/MyCamera.cs" />
      <Compile Include="Assets/Scripts/GameUI.cs" />
      <Compile Include="Assets/Scripts/Player.cs" />
-     <Compile Include="Assets/Scripts/FallingBlock.cs" />
      <Compile Include="Assets/Scripts/Spawner.cs" />
+     <Compile Include="Assets/Scripts/FallingBlock.cs" />
+     <Compile Include="Assets/Scripts/GroundableObject.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/Unity/Hub/Editor/2020.3.22f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -611,98 +612,98 @@
     <Reference Include="mscorlib">
         <HintPath>/Applications/Unity/Hub/Editor/2020.3.22f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Animation.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.IK.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.InternalAPIEngineBridge.001">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.PixelPerfect">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.quicksearch">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/com.unity.quicksearch.dll</HintPath>
-    </Reference>
-    <Reference Include="PsdPlugin">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
+    <Reference Include="Unity.2D.Common.Runtime">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
         <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.VisualStudio.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Timeline">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.IK.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.IK.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    <Reference Include="UnityEditor.UI">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Psdimporter.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Psdimporter.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Path.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
+    <Reference Include="Unity.VSCode.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.IK.Runtime">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.PixelPerfect.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InternalAPIEngineBridge.001">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.InternalAPIEngineBridge.001.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InternalAPIEditorBridge.001">
         <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.InternalAPIEditorBridge.001.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.UI">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    <Reference Include="Unity.2D.Sprite.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
+    <Reference Include="Unity.TextMeshPro">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rider.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.SpriteShape.Runtime">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.UI">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    <Reference Include="Unity.2D.PixelPerfect">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.PixelPerfect.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
         <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.IK.Runtime">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
+    <Reference Include="Unity.2D.Common.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Triangle.Runtime">
         <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Animation.Triangle.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Animation.Runtime">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+    <Reference Include="Unity.2D.SpriteShape.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.PixelPerfect.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.PixelPerfect.Editor.dll</HintPath>
+    <Reference Include="Unity.Rider.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Timeline">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
         <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Animation.Runtime">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Animation.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualStudio.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.PlasticSCM.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Mathematics.Editor">
         <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.Mathematics.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Common.Runtime">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+    <Reference Include="Unity.2D.Path.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Path.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.SpriteShape.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
+    <Reference Include="Unity.2D.Animation.Editor">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/Unity.2D.Animation.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.Common.Editor">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.Common.Editor.dll</HintPath>
+    <Reference Include="com.unity.quicksearch">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/com.unity.quicksearch.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.SpriteShape.Runtime">
-        <HintPath>/Users/moo/Documents/github/avalanche/Library/ScriptAssemblies/Unity.2D.SpriteShape.Runtime.dll</HintPath>
+    <Reference Include="PsdPlugin">
+        <HintPath>/Users/alex.cornellier/unity/avalanche/Library/ScriptAssemblies/PsdPlugin.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

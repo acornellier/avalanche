@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : GroundableObject
 {
     [SerializeField]
     float walkSpeed;
@@ -12,15 +12,10 @@ public class Player : MonoBehaviour
     float slideSpeed;
     [SerializeField]
     float jumpOffWallDuration = 0.2f;
-    [SerializeField]
-    LayerMask jumpableMask;
 
-    Rigidbody2D body;
-    BoxCollider2D boxCollider;
     float screenHalfWidth;
 
     readonly float wallEpsilon = 0.01f;
-    readonly float groundEpsilon = 0.05f;
 
     float jumpedOffWallTimestamp;
 
@@ -29,10 +24,9 @@ public class Player : MonoBehaviour
     public Sprite movingRight;
     public Sprite movingLeft;
 
-    void Start()
+    protected override void Start()
     {
-        body = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        base.Start();
         screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
     }
 
@@ -56,19 +50,22 @@ public class Player : MonoBehaviour
         bool nextToWallAndNotPushingAway = wallDirection * horizontalInput > 0;
         spriteRenderer.sprite = standingUp;
         // fixes sticking to walls if left/right is being held
-        if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall) {
+        if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall)
+        {
             newVelocity.x = 0;
         }
-        else {
+        else
+        {
             newVelocity.x = Mathf.Lerp(body.velocity.x, horizontalInput * walkSpeed, 0.05f);
-            if (horizontalInput == 1) {
+            if (horizontalInput == 1)
+            {
                 spriteRenderer.sprite = movingRight;
             }
-            else {
+            else if (horizontalInput == -1)
+            {
                 spriteRenderer.sprite = movingLeft;
             }
         }
-            
 
         if (justPressedJump)
         {
@@ -97,22 +94,6 @@ public class Player : MonoBehaviour
         {
             body.position = new Vector2(-screenHalfWidth, transform.position.y);
         }
-    }
-
-    bool IsGrounded()
-    {
-        var boxCastHit = Physics2D.BoxCast(
-            boxCollider.bounds.center,
-            boxCollider.bounds.size,
-            0f,
-            Vector2.down,
-            groundEpsilon,
-            jumpableMask
-        );
-
-        var isGrounded = boxCastHit.collider != null;
-
-        return isGrounded;
     }
 
     float GetWallDirection()

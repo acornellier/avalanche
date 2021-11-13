@@ -1,13 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FallingBlock : MonoBehaviour
+public class FallingBlock : GroundableObject
 {
-    float speed = 7;
+    public float speed;
+
+    bool grounded;
 
     void Update()
     {
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        if (grounded)
+            return;
+
+        transform.Translate(speed * Time.deltaTime * Vector3.down);
+
+        if (IsGrounded())
+        {
+            grounded = true;
+            body.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
     }
 }
