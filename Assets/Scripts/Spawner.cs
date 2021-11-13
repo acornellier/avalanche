@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour
             nextSpawnTime = Time.time + secondsBetweenSpawns;
             float spawnSize = Random.Range(spawnSizeMinMax.x, spawnSizeMinMax.y);
             var spawnPosition = new Vector2(
-                Random.Range(-screenHalfSizeWorldUnits.x, screenHalfSizeWorldUnits.x),
+                Random.Range(-screenHalfSizeWorldUnits.x+(spawnSize/2), screenHalfSizeWorldUnits.x-(spawnSize/2)),
                 screenHalfSizeWorldUnits.y + 0.5f + nextSpawnHeightOffset
             );
             // Quaternion.identity just means zero rotation
