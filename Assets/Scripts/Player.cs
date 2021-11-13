@@ -24,6 +24,11 @@ public class Player : MonoBehaviour
 
     float jumpedOffWallTimestamp;
 
+    public SpriteRenderer spriteRenderer;
+    public Sprite standingUp;
+    public Sprite movingRight;
+    public Sprite movingLeft;
+
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -49,12 +54,21 @@ public class Player : MonoBehaviour
             );
 
         bool nextToWallAndNotPushingAway = wallDirection * horizontalInput > 0;
+        spriteRenderer.sprite = standingUp;
         // fixes sticking to walls if left/right is being held
-        if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall)
+        if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall) {
             newVelocity.x = 0;
-        else
+        }
+        else {
             newVelocity.x = Mathf.Lerp(body.velocity.x, horizontalInput * walkSpeed, 0.05f);
-            body.rotation = -10 * horizontalInput;
+            if (horizontalInput == 1) {
+                spriteRenderer.sprite = movingRight;
+            }
+            else {
+                spriteRenderer.sprite = movingLeft;
+            }
+        }
+            
 
         if (justPressedJump)
         {
