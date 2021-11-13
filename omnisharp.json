@@ -1,6 +1,0 @@
-{
-  "RoslynExtensionsOptions": {
-    "EnableAnalyzersSupport": true,
-    "LocationPaths": ["/Users/alex.cornellier/.nuget"]
-  }
-}
