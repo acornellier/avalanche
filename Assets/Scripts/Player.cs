@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
             newVelocity.x = 0;
         else
             newVelocity.x = Mathf.Lerp(body.velocity.x, horizontalInput * walkSpeed, 0.05f);
+            body.rotation = -10 * horizontalInput;
 
         if (justPressedJump)
         {
