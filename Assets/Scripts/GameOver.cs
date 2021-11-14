@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour
 {
     public GameObject gameOverScreen;
+    public GameObject gameBackground;
     public Text score;
     bool gameOver;
     public Transform player;
@@ -27,6 +28,7 @@ public class GameOver : MonoBehaviour
 
     void OnGameOver() {
         gameOverScreen.SetActive (true);
+        gameBackground.SetActive (false);
         score.text = player.position.y.ToString();
         gameOver = true;
         camera.transform.position = new Vector3(28.5f, 14.61f, -12.13f);
