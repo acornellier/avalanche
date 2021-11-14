@@ -15,16 +15,16 @@ public class Player : GroundableObject
     [SerializeField]
     float gravityModifier;
 
-    float screenHalfWidth;
-
-    readonly float wallEpsilon = 0.01f;
-
-    float jumpedOffWallTimestamp;
-
+    public Collider2D lavaCollider;
     public SpriteRenderer spriteRenderer;
     public Sprite standingUp;
     public Sprite movingRight;
     public Sprite movingLeft;
+
+    readonly float wallEpsilon = 0.01f;
+
+    float screenHalfWidth;
+    float jumpedOffWallTimestamp;
 
     public event System.Action OnPlayerDeath;
 
@@ -45,7 +45,7 @@ public class Player : GroundableObject
         var isCeilinged = IsCeilinged();
 
         // check for death
-        if (isGrounded && isCeilinged)
+        if (isGrounded && isCeilinged || body.IsTouching(lavaCollider))
         {
             OnPlayerDeath?.Invoke();
             gameObject.SetActive(false);
@@ -141,10 +141,12 @@ public class Player : GroundableObject
         return 0;
     }
 
-    void OnTriggerEnter2D(Collider2D triggerCollider) {
+    void OnTriggerEnter2D(Collider2D triggerCollider)
+    {
         print(triggerCollider);
-        if (triggerCollider.tag == "Lava") {
-            Destroy (gameObject);
+        if (triggerCollider.tag == "Lava")
+        {
+            Destroy(gameObject);
         }
     }
 }

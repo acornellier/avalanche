@@ -570,6 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d0859613881440eabda3ffd2ea16ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   fallingBlockPrefab: {fileID: 6801432423462587440, guid: 508829a14bcb64c7aba757691c273f47, type: 3}
   secondsBetweenSpawns: 0.8
   spawnSizeMinMax: {x: 0.25, y: 0.5}
@@ -702,8 +703,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.1514, y: -113}
-  m_SizeDelta: {x: 1817.1047, y: 294.7862}
+  m_AnchoredPosition: {x: 0.000030518, y: -164}
+  m_SizeDelta: {x: 746.2, y: 117.3837}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &768113855
 MonoBehaviour:
@@ -835,6 +836,7 @@ MonoBehaviour:
   slideSpeed: 2
   jumpOffWallDuration: 0.2
   gravityModifier: 0.05
+  lavaCollider: {fileID: 1750170644}
   spriteRenderer: {fileID: 815619322}
   standingUp: {fileID: 21300000, guid: 712b1079f3a8c45798886f4097738377, type: 3}
   movingRight: {fileID: 21300000, guid: 1ac9994e120ae463a9a60f646139dcc6, type: 3}
@@ -1114,8 +1116,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.1514, y: 118.066}
-  m_SizeDelta: {x: 1817.1047, y: 294.7862}
+  m_AnchoredPosition: {x: -20, y: -13}
+  m_SizeDelta: {x: 760.4783, y: 235.9003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1169385147
 MonoBehaviour:
@@ -1195,8 +1197,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -36, y: 196}
-  m_SizeDelta: {x: 916.5, y: 392}
+  m_AnchoredPosition: {x: -20.000015, y: 140}
+  m_SizeDelta: {x: 665.0369, y: 164.81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1303284002
 MonoBehaviour:
@@ -1310,7 +1312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1584,8 +1586,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 502.95325, y: -29.687592}
-  m_SizeDelta: {x: 773.5984, y: 1002.2307}
+  m_AnchoredPosition: {x: 246, y: -28.981}
+  m_SizeDelta: {x: 306.7626, y: 554.7728}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1926738590
 MonoBehaviour:
