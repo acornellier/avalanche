@@ -19,7 +19,8 @@ public class GameUI : MonoBehaviour
     {
         var curHeight = Mathf.Round(player.position.y - initialHeight);
         heightText.text = $"{curHeight}ft";
-        if (player.position.y > highscore) {
+        if (player.position.y > highscore)
+        {
             highscore = player.position.y;
             highscoreText.text = $"{Mathf.Round(player.position.y)}ft";
         }

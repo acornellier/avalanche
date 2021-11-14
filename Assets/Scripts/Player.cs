@@ -36,18 +36,22 @@ public class Player : GroundableObject
 
     void Update()
     {
-        if (transform.position.y > 15) {
-            if (OnPlayerDeath != null) {
-                OnPlayerDeath();
-            }
-
-        }
         var newVelocity = body.velocity;
         var horizontalInput = Input.GetAxisRaw("Horizontal");
 
         var justPressedJump = Input.GetKeyDown(KeyCode.UpArrow);
 
         var isGrounded = IsGrounded();
+        var isCeilinged = IsCeilinged();
+
+        // check for death
+        if (isGrounded && isCeilinged)
+        {
+            OnPlayerDeath?.Invoke();
+            gameObject.SetActive(false);
+            return;
+        }
+
         var wallDirection = GetWallDirection();
         var justJumpedOffWall = Time.time - jumpedOffWallTimestamp < jumpOffWallDuration;
         var isHanging =
