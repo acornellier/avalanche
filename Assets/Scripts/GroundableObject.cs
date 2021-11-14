@@ -28,6 +28,6 @@ public class GroundableObject : MonoBehaviour
             jumpableMask
         );
 
-        return boxCastHit.collider != null;
+        return boxCastHit.collider != null && boxCastHit.collider.gameObject != gameObject;
     }
 }

@@ -280,7 +280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435135787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0449996, y: 56.305, z: 0}
+  m_LocalPosition: {x: 0.0449996, y: 56.305, z: 2.76}
   m_LocalScale: {x: 0.74872595, y: 0.73804665, z: 0.7365}
   m_Children: []
   m_Father: {fileID: 0}
@@ -353,7 +353,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.6192617
+  orthographic size: 4.751187
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -466,14 +466,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.27, y: 8.6}
+    oldSize: {x: 3.4020617, y: 4.666305}
     newSize: {x: 6.27, y: 8.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.4020617, y: 4.666305}
   m_EdgeRadius: 0
 --- !u!50 &815619320
 Rigidbody2D:
@@ -485,16 +485,16 @@ Rigidbody2D:
   m_GameObject: {fileID: 815619318}
   m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3
   m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_Interpolate: 1
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &815619321
 MonoBehaviour:
@@ -513,9 +513,10 @@ MonoBehaviour:
     m_Bits: 64
   walkSpeed: 10
   jumpSpeed: 15
-  jumpOffWallSpeed: 15
+  jumpOffWallSpeed: 1
   slideSpeed: 2
   jumpOffWallDuration: 0.2
+  gravityModifier: 0.05
   spriteRenderer: {fileID: 815619322}
   standingUp: {fileID: 21300000, guid: 712b1079f3a8c45798886f4097738377, type: 3}
   movingRight: {fileID: 21300000, guid: 1ac9994e120ae463a9a60f646139dcc6, type: 3}
@@ -579,11 +580,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815619318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.66, y: -2.22, z: 0}
-  m_LocalScale: {x: 0.10360748, y: 0.11253823, z: 0.4276}
+  m_LocalPosition: {x: -0.19, y: -1.06, z: -7.48}
+  m_LocalScale: {x: 0.21204244, y: 0.22244312, z: 0.4276}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &989354247
 GameObject:
@@ -692,7 +693,7 @@ Transform:
   m_LocalScale: {x: 17.79, y: 3.5001788, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1101367794
 GameObject:
@@ -758,7 +759,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1437936285
 GameObject:
@@ -792,7 +793,7 @@ RectTransform:
   m_Children:
   - {fileID: 392133901}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -903,7 +904,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2117091200
 PrefabInstance:
@@ -912,9 +913,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 387776139, guid: 508829a14bcb64c7aba757691c273f47, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 387776139, guid: 508829a14bcb64c7aba757691c273f47, type: 3}
+      propertyPath: m_UseFullKinematicContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6801432423462587440, guid: 508829a14bcb64c7aba757691c273f47, type: 3}
       propertyPath: m_Name
       value: block
+      objectReference: {fileID: 0}
+    - target: {fileID: 6801432423462587440, guid: 508829a14bcb64c7aba757691c273f47, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8468055607990452695, guid: 508829a14bcb64c7aba757691c273f47, type: 3}
       propertyPath: m_RootOrder

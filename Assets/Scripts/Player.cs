@@ -11,7 +11,9 @@ public class Player : GroundableObject
     [SerializeField]
     float slideSpeed;
     [SerializeField]
-    float jumpOffWallDuration = 0.2f;
+    float jumpOffWallDuration;
+    [SerializeField]
+    float gravityModifier;
 
     float screenHalfWidth;
 
@@ -49,6 +51,7 @@ public class Player : GroundableObject
 
         bool nextToWallAndNotPushingAway = wallDirection * horizontalInput > 0;
         spriteRenderer.sprite = standingUp;
+
         // fixes sticking to walls if left/right is being held
         if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall)
         {
@@ -57,14 +60,14 @@ public class Player : GroundableObject
         else
         {
             newVelocity.x = Mathf.Lerp(body.velocity.x, horizontalInput * walkSpeed, 0.05f);
-            if (horizontalInput == 1)
-            {
-                spriteRenderer.sprite = movingRight;
-            }
-            else if (horizontalInput == -1)
-            {
-                spriteRenderer.sprite = movingLeft;
-            }
+            // if (horizontalInput == 1)
+            // {
+            //     spriteRenderer.sprite = movingRight;
+            // }
+            // else if (horizontalInput == -1)
+            // {
+            //     spriteRenderer.sprite = movingLeft;
+            // }
         }
 
         if (justPressedJump)
@@ -78,6 +81,7 @@ public class Player : GroundableObject
                 newVelocity = new Vector2(jumpOffWallSpeed * -wallDirection, jumpSpeed);
                 jumpedOffWallTimestamp = Time.time;
             }
+            Debug.LogWarning($"JUMPED {isGrounded} {isHanging} {newVelocity}");
         }
         else if (isHanging)
         {
