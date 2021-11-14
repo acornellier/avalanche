@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 1699765577}
   gameBackground: {fileID: 435135787}
+  lava: {fileID: 1750170640}
   score: {fileID: 1169385147}
   player: {fileID: 815619324}
   camera: {fileID: 519420028}
