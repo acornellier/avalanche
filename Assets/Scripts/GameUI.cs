@@ -21,7 +21,7 @@ public class GameUI : MonoBehaviour
         heightText.text = $"{curHeight}ft";
         if (player.position.y > highscore) {
             highscore = player.position.y;
-            highscoreText.text = player.position.y.ToString();
+            highscoreText.text = $"{Mathf.Round(player.position.y)}ft";
         }
     }
 }
