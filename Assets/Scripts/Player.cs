@@ -136,4 +136,11 @@ public class Player : GroundableObject
 
         return 0;
     }
+
+    void OnTriggerEnter2D(Collider2D triggerCollider) {
+        print(triggerCollider);
+        if (triggerCollider.tag == "Lava") {
+            Destroy (gameObject);
+        }
+    }
 }
