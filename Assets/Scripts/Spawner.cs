@@ -33,7 +33,10 @@ public class Spawner : MonoBehaviour
             nextSpawnTime = Time.time + secondsBetweenSpawns;
             float spawnSize = Random.Range(spawnSizeMinMax.x, spawnSizeMinMax.y);
             var spawnPosition = new Vector2(
-                Random.Range(-screenHalfSizeWorldUnits.x+(spawnSize/2), screenHalfSizeWorldUnits.x-(spawnSize/2)),
+                Random.Range(
+                    -screenHalfSizeWorldUnits.x + (spawnSize / 2),
+                    screenHalfSizeWorldUnits.x - (spawnSize / 2)
+                ),
                 screenHalfSizeWorldUnits.y + 0.5f + nextSpawnHeightOffset
             );
             // Quaternion.identity just means zero rotation
@@ -42,11 +45,13 @@ public class Spawner : MonoBehaviour
                 spawnPosition,
                 Quaternion.identity
             );
+            newBlock.name = $"Block {nextSpawnHeightOffset}";
             newBlock.transform.localScale = Vector2.one * spawnSize;
         }
     }
 
-    void OnGameOver() {
+    void OnGameOver()
+    {
         gameOver = true;
     }
 }

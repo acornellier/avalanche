@@ -10,6 +10,7 @@ public class GroundableObject : MonoBehaviour
     protected ContactFilter2D contactFilter;
 
     readonly float groundEpsilon = 0.05f;
+    readonly RaycastHit2D[] hitBuffer = new RaycastHit2D[8];
 
     protected virtual void Start()
     {
@@ -19,15 +20,27 @@ public class GroundableObject : MonoBehaviour
 
     protected bool IsGrounded()
     {
-        var boxCastHit = Physics2D.BoxCast(
-            boxCollider.bounds.center,
-            boxCollider.bounds.size,
-            0f,
-            Vector2.down,
-            groundEpsilon,
-            jumpableMask
-        );
+        int numHits = boxCollider.Cast(Vector2.down, hitBuffer, groundEpsilon);
+        for (int hitIndex = 0; hitIndex < numHits; hitIndex++)
+        {
+            var hit = hitBuffer[hitIndex];
+            if (hit.normal == Vector2.up)
+                return true;
+        }
 
-        return boxCastHit.collider != null && boxCastHit.collider.gameObject != gameObject;
+        return false;
+    }
+
+    protected bool IsCeilinged()
+    {
+        int numHits = boxCollider.Cast(Vector2.up, hitBuffer, groundEpsilon);
+        for (int hitIndex = 0; hitIndex < numHits; hitIndex++)
+        {
+            var hit = hitBuffer[hitIndex];
+            if (hit.normal == Vector2.down)
+                return true;
+        }
+
+        return false;
     }
 }
