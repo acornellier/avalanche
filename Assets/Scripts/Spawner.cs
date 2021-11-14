@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
     public float secondsBetweenSpawns = 1;
     float nextSpawnTime;
     float nextSpawnHeightOffset;
+    bool gameOver;
 
     public Vector2 spawnSizeMinMax;
 
@@ -16,6 +17,7 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FindObjectOfType<Player>().OnPlayerDeath += OnGameOver;
         screenHalfSizeWorldUnits = new Vector2(
             Camera.main.aspect * Camera.main.orthographicSize,
             Camera.main.orthographicSize
@@ -25,7 +27,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextSpawnTime)
+        if (!gameOver && Time.time > nextSpawnTime)
         {
             nextSpawnHeightOffset += 1;
             nextSpawnTime = Time.time + secondsBetweenSpawns;
@@ -42,5 +44,9 @@ public class Spawner : MonoBehaviour
             );
             newBlock.transform.localScale = Vector2.one * spawnSize;
         }
+    }
+
+    void OnGameOver() {
+        gameOver = true;
     }
 }

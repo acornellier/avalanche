@@ -3,13 +3,13 @@ using UnityEngine;
 public class Player : GroundableObject
 {
     [SerializeField]
-    float walkSpeed;
+    float walkSpeed = 10;
     [SerializeField]
-    float jumpSpeed;
+    float jumpSpeed = 15;
     [SerializeField]
-    float jumpOffWallSpeed;
+    float jumpOffWallSpeed = 10;
     [SerializeField]
-    float slideSpeed;
+    float slideSpeed = 3;
     [SerializeField]
     float jumpOffWallDuration;
     [SerializeField]
@@ -26,6 +26,8 @@ public class Player : GroundableObject
     public Sprite movingRight;
     public Sprite movingLeft;
 
+    public event System.Action OnPlayerDeath;
+
     protected override void Start()
     {
         base.Start();
@@ -34,6 +36,12 @@ public class Player : GroundableObject
 
     void Update()
     {
+        if (transform.position.y > 15) {
+            if (OnPlayerDeath != null) {
+                OnPlayerDeath();
+            }
+
+        }
         var newVelocity = body.velocity;
         var horizontalInput = Input.GetAxisRaw("Horizontal");
 

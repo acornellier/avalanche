@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
+    float highscore;
+    public Text highscoreText;
     public Text heightText;
     public Transform player;
 
@@ -17,5 +19,9 @@ public class GameUI : MonoBehaviour
     {
         var curHeight = Mathf.Round(player.position.y - initialHeight);
         heightText.text = $"{curHeight}ft";
+        if (player.position.y > highscore) {
+            highscore = player.position.y;
+            highscoreText.text = player.position.y.ToString();
+        }
     }
 }
