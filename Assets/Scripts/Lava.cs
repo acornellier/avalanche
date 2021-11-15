@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Lava : MonoBehaviour
 {
-    public float positionFactor = 0.000000001f;
-    int frameCount = 0;
+    public float speed;
 
     void Update()
     {
-        frameCount += 1;
-        transform.position = new Vector3 (transform.position.x, Time.timeSinceLevelLoad -90, transform.position.z);
+        transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y + speed * Time.deltaTime,
+            transform.position.z
+        );
     }
 }

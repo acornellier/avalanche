@@ -21,8 +21,6 @@ public class Player : GroundableObject
     public Sprite movingRight;
     public Sprite movingLeft;
 
-    readonly float wallEpsilon = 0.01f;
-
     float screenHalfWidth;
     float jumpedOffWallTimestamp;
 
@@ -104,47 +102,18 @@ public class Player : GroundableObject
 
         if (body.position.x < -screenHalfWidth)
         {
-            body.position = new Vector2(screenHalfWidth, transform.position.y);
+            transform.position = new Vector2(screenHalfWidth, transform.position.y);
         }
         else if (body.position.x > screenHalfWidth)
         {
-            body.position = new Vector2(-screenHalfWidth, transform.position.y);
+            transform.position = new Vector2(-screenHalfWidth, transform.position.y);
         }
-    }
-
-    float GetWallDirection()
-    {
-        var leftBoxCastHit = Physics2D.BoxCast(
-            boxCollider.bounds.center,
-            boxCollider.bounds.size,
-            0f,
-            Vector2.left,
-            wallEpsilon,
-            jumpableMask
-        );
-
-        if (leftBoxCastHit.collider != null)
-            return -1;
-
-        var rightBoxCastHit = Physics2D.BoxCast(
-            boxCollider.bounds.center,
-            boxCollider.bounds.size,
-            0f,
-            Vector2.right,
-            wallEpsilon,
-            jumpableMask
-        );
-
-        if (rightBoxCastHit.collider != null)
-            return 1;
-
-        return 0;
     }
 
     void OnTriggerEnter2D(Collider2D triggerCollider)
     {
         print(triggerCollider);
-        if (triggerCollider.tag == "Lava")
+        if (triggerCollider.CompareTag("Lava"))
         {
             Destroy(gameObject);
         }
