@@ -11,6 +11,8 @@ public class Player : GroundableObject
     [SerializeField]
     float slideSpeed = 3;
     [SerializeField]
+    float jumpOffWallBufferTime;
+    [SerializeField]
     float jumpOffWallDuration;
     [SerializeField]
     float gravityModifier;
@@ -22,6 +24,7 @@ public class Player : GroundableObject
     public Sprite movingLeft;
 
     float screenHalfWidth;
+    float lastHangingTimestamp;
     float jumpedOffWallTimestamp;
 
     public event System.Action OnPlayerDeath;
@@ -59,6 +62,9 @@ public class Player : GroundableObject
                 || (wallDirection > 0 && horizontalInput > 0)
             );
 
+        if (isHanging)
+            lastHangingTimestamp = Time.time;
+
         bool nextToWallAndNotPushingAway = wallDirection * horizontalInput > 0;
         spriteRenderer.sprite = standingUp;
 
@@ -86,7 +92,7 @@ public class Player : GroundableObject
             {
                 newVelocity.y = jumpSpeed;
             }
-            else if (isHanging)
+            else if (isHanging || (Time.time - lastHangingTimestamp < jumpOffWallBufferTime))
             {
                 newVelocity = new Vector2(jumpOffWallSpeed * -wallDirection, jumpSpeed);
                 jumpedOffWallTimestamp = Time.time;
@@ -107,15 +113,6 @@ public class Player : GroundableObject
         else if (body.position.x > screenHalfWidth)
         {
             transform.position = new Vector2(-screenHalfWidth, transform.position.y);
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D triggerCollider)
-    {
-        print(triggerCollider);
-        if (triggerCollider.CompareTag("Lava"))
-        {
-            Destroy(gameObject);
         }
     }
 }

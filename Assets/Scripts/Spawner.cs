@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -34,18 +32,52 @@ public class Spawner : MonoBehaviour
             return;
 
         nextSpawnTime = Time.time + secondsBetweenSpawns;
-        float spawnSize = Random.Range(spawnSizeMinMax.x, spawnSizeMinMax.y);
-        var spawnPosition = new Vector2(
-            Random.Range(
-                -screenHalfSizeWorldUnits.x + (spawnSize / 2),
-                screenHalfSizeWorldUnits.x - (spawnSize / 2)
-            ),
-            player.transform.position.y + 2 * screenHalfSizeWorldUnits.y
-        );
-        // Quaternion.identity just means zero rotation
-        GameObject newBlock = Instantiate(fallingBlockPrefab, spawnPosition, Quaternion.identity);
+        var spawnSize = Random.Range(spawnSizeMinMax.x, spawnSizeMinMax.y);
+
+        var newBlock = SpawnNonCollidingBlock(spawnSize);
         newBlock.name = $"Block {nextBlockName++}";
-        newBlock.transform.localScale = Vector2.one * spawnSize;
+    }
+
+    GameObject SpawnNonCollidingBlock(float spawnSize)
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            var spawnPosition = new Vector2(
+                Random.Range(
+                    -screenHalfSizeWorldUnits.x + (spawnSize / 2),
+                    screenHalfSizeWorldUnits.x - (spawnSize / 2)
+                ),
+                player.transform.position.y + 2 * screenHalfSizeWorldUnits.y
+            );
+
+            GameObject newBlock = Instantiate(
+                fallingBlockPrefab,
+                spawnPosition,
+                Quaternion.identity
+            );
+
+            newBlock.transform.localScale = Vector2.one * spawnSize;
+
+            var collider = newBlock.GetComponent<BoxCollider2D>();
+            var hits = Physics2D.OverlapBoxAll(collider.bounds.center, collider.bounds.size, 0);
+
+            bool isColliding = false;
+            foreach (var hit in hits)
+            {
+                if (hit != collider)
+                {
+                    isColliding = true;
+                    break;
+                }
+            }
+
+            if (isColliding)
+                Destroy(newBlock);
+            else
+                return newBlock;
+        }
+
+        throw new System.Exception("Failed to find a position to spawn a block after 10 attempts");
     }
 
     void OnGameOver()
