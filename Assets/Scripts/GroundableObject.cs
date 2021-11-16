@@ -66,31 +66,5 @@ public class GroundableObject : MonoBehaviour
         }
 
         return 0;
-
-        var leftBoxCastHit = Physics2D.BoxCast(
-            boxCollider.bounds.center,
-            boxCollider.bounds.size,
-            0f,
-            Vector2.left,
-            wallEpsilon,
-            jumpableMask
-        );
-
-        if (leftBoxCastHit.collider != null)
-            return -1;
-
-        var rightBoxCastHit = Physics2D.BoxCast(
-            boxCollider.bounds.center,
-            boxCollider.bounds.size,
-            0f,
-            Vector2.right,
-            wallEpsilon,
-            jumpableMask
-        );
-
-        if (rightBoxCastHit.collider != null)
-            return 1;
-
-        return 0;
     }
 }
