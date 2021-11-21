@@ -16,24 +16,6 @@ public class Spawner : MonoBehaviour
 
     Vector2 screenHalfSizeWorldUnits;
 
-    public List<Color> colors = new List<Color>
-        { 
-            new Color(0, 0, 0, 1),
-            new Color(0, 0, 1, 0),
-            new Color(0, 1, 0, 0),
-            new Color(1, 0, 0, 0),
-            new Color(0, 1, 1, 1),
-            new Color(1, 0, 0, 1),
-            new Color(1, 0, 1, 1),
-            new Color(0, 1, 0, 1),
-            new Color(0, 0, 1, 1),
-            new Color(0, 1, 0, 0),
-            new Color(1, 1, 0, 1),
-            new Color(1, 0, 1, 0),
-            new Color(0, 1, 1, 1),
-            new Color(1, 1, 1, 0),
-        };
-
     // Start is called before the first frame update
     void Start()
     {
@@ -56,8 +38,25 @@ public class Spawner : MonoBehaviour
 
         var newBlock = SpawnNonCollidingBlock(spawnSize);
         newBlock.name = $"Block {nextBlockName++}";
-        int index = Random.Range(0, colors.Count);
-        newBlock.GetComponent<Renderer>().material.color = colors[index];
+        int index = Random.Range(0, 6);
+        if (index == 0) {
+            newBlock.GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else if (index == 1) {
+            newBlock.GetComponent<Renderer>().material.color = Color.blue;
+        }
+        else if (index == 2) {
+            newBlock.GetComponent<Renderer>().material.color = Color.magenta;
+        }
+        else if (index == 3) {
+            newBlock.GetComponent<Renderer>().material.color = Color.red;
+        }
+        else if (index == 4) {
+            newBlock.GetComponent<Renderer>().material.color = Color.cyan;
+        }
+        else {
+            newBlock.GetComponent<Renderer>().material.color = Color.green;
+        }
     }
 
     GameObject SpawnNonCollidingBlock(float spawnSize)
