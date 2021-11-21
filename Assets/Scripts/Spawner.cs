@@ -16,21 +16,22 @@ public class Spawner : MonoBehaviour
 
     Vector2 screenHalfSizeWorldUnits;
 
-    public Color cyan = new Color(0, 1, 1, 1);
-    public Color red = new Color(1, 0, 0, 1);
-    public Color magenta = new Color(1, 0, 1, 1);
-    public Color green = new Color(0, 1, 0, 1);
-    public Color blue = new Color(0, 0, 1, 1);
-    public Color clear = new Color(0, 0, 0, 0);
-    // public Color yellow = new Color(1, 0.92, 0.016, 1);
     public List<Color> colors = new List<Color>
         { 
+            new Color(0, 0, 0, 1),
+            new Color(0, 0, 1, 0),
+            new Color(0, 1, 0, 0),
+            new Color(1, 0, 0, 0),
             new Color(0, 1, 1, 1),
             new Color(1, 0, 0, 1),
             new Color(1, 0, 1, 1),
             new Color(0, 1, 0, 1),
             new Color(0, 0, 1, 1),
-            new Color(0, 0, 0, 0),
+            new Color(0, 1, 0, 0),
+            new Color(1, 1, 0, 1),
+            new Color(1, 0, 1, 0),
+            new Color(0, 1, 1, 1),
+            new Color(1, 1, 1, 0),
         };
 
     // Start is called before the first frame update

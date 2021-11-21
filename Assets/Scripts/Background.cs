@@ -27,14 +27,10 @@ public class Background : MonoBehaviour
         if (player.position.y < 97) {
             lerp = (player.position.y + 3) / 110;
             rend.material.color = Color.Lerp(colorStart, colorMiddle, lerp);
-            print(lerp);
-            print(rend.material.color);
         }
         else if (player.position.y < 197) {
             lerp = (player.position.y - 97) / 110;
             rend.material.color = Color.Lerp(colorMiddle, colorEnd, lerp);
-            print(lerp);
-            print(rend.material.color);
         }
         
     }
