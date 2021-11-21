@@ -66,7 +66,7 @@ public class Player : GroundableObject
             lastHangingTimestamp = Time.time;
 
         bool nextToWallAndNotPushingAway = wallDirection * horizontalInput > 0;
-        spriteRenderer.sprite = standingUp;
+        // spriteRenderer.sprite = standingUp;
 
         // fixes sticking to walls if left/right is being held
         if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall)
