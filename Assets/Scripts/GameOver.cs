@@ -8,6 +8,7 @@ public class GameOver : MonoBehaviour
 {
     public GameObject gameOverScreen;
     public GameObject gameBackground;
+    public GameObject starHolder;
     public GameObject lava;
     public Text score;
     bool gameOver;
@@ -30,6 +31,7 @@ public class GameOver : MonoBehaviour
     void OnGameOver() {
         gameOverScreen.SetActive (true);
         gameBackground.SetActive (false);
+        starHolder.SetActive (false);
         lava.SetActive (false);
         score.text = $"{Mathf.Round(player.position.y)}ft";
         gameOver = true;

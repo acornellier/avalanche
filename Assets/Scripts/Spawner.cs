@@ -5,6 +5,7 @@ public class Spawner : MonoBehaviour
 {
     public Player player;
     public GameObject fallingBlockPrefab;
+    public GameObject blockHolder;
     public float secondsBetweenSpawns = 1;
 
     float nextSpawnTime;
@@ -77,6 +78,7 @@ public class Spawner : MonoBehaviour
             );
 
             newBlock.transform.localScale = Vector2.one * spawnSize;
+            newBlock.transform.parent = blockHolder.transform;
 
             var collider = newBlock.GetComponent<BoxCollider2D>();
             var hits = Physics2D.OverlapBoxAll(collider.bounds.center, collider.bounds.size, 0);

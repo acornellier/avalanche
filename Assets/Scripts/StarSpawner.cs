@@ -6,6 +6,7 @@ public class StarSpawner : MonoBehaviour
 {
     public Player player;
     public GameObject starPrefab;
+    public GameObject starHolder;
     public float distanceBetweenSpawns = 1;
 
     float nextSpawnDistance;
@@ -63,5 +64,6 @@ public class StarSpawner : MonoBehaviour
         );
         newStar.transform.localScale = Vector2.one * spawnSize;
         newStar.name = $"Star {nextStarName++}";
+        newStar.transform.parent = starHolder.transform;
     }
 }
