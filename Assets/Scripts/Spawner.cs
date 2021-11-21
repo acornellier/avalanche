@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
@@ -13,6 +14,23 @@ public class Spawner : MonoBehaviour
     public Vector2 spawnSizeMinMax;
 
     Vector2 screenHalfSizeWorldUnits;
+
+    public Color cyan = new Color(0, 1, 1, 1);
+    public Color red = new Color(1, 0, 0, 1);
+    public Color magenta = new Color(1, 0, 1, 1);
+    public Color green = new Color(0, 1, 0, 1);
+    public Color blue = new Color(0, 0, 1, 1);
+    public Color clear = new Color(0, 0, 0, 0);
+    // public Color yellow = new Color(1, 0.92, 0.016, 1);
+    public List<Color> colors = new List<Color>
+        { 
+            new Color(0, 1, 1, 1),
+            new Color(1, 0, 0, 1),
+            new Color(1, 0, 1, 1),
+            new Color(0, 1, 0, 1),
+            new Color(0, 0, 1, 1),
+            new Color(0, 0, 0, 0),
+        };
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +54,8 @@ public class Spawner : MonoBehaviour
 
         var newBlock = SpawnNonCollidingBlock(spawnSize);
         newBlock.name = $"Block {nextBlockName++}";
+        int index = Random.Range(0, colors.Count);
+        newBlock.GetComponent<Renderer>().material.color = colors[index];
     }
 
     GameObject SpawnNonCollidingBlock(float spawnSize)

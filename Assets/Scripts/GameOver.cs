@@ -33,7 +33,7 @@ public class GameOver : MonoBehaviour
         lava.SetActive (false);
         score.text = $"{Mathf.Round(player.position.y)}ft";
         gameOver = true;
-        camera.transform.position = new Vector3(28.5f, 14.61f, -12.13f);
+        camera.transform.position = new Vector3(12.2f, 14.61f, -12.13f);
         Camera.main.orthographicSize = 20;
     }
 }
