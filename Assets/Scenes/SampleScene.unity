@@ -186,6 +186,7 @@ MonoBehaviour:
   gameBackground: {fileID: 1411580885}
   starHolder: {fileID: 146493413}
   lava: {fileID: 1750170640}
+  playerObject: {fileID: 815619318}
   score: {fileID: 1169385147}
   player: {fileID: 815619324}
   camera: {fileID: 519420028}
@@ -554,17 +555,6 @@ MonoBehaviour:
   blockHolder: {fileID: 416987544}
   secondsBetweenSpawns: 0.8
   spawnSizeMinMax: {x: 0.25, y: 0.5}
-  cyan: {r: 0, g: 1, b: 1, a: 1}
-  red: {r: 1, g: 0, b: 0, a: 1}
-  magenta: {r: 1, g: 0, b: 1, a: 1}
-  green: {r: 0, g: 1, b: 0, a: 1}
-  blue: {r: 0, g: 0, b: 1, a: 1}
-  clear: {r: 0, g: 0, b: 0, a: 0}
-  colors:
-  - {r: 0, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
 --- !u!4 &657544578
 Transform:
   m_ObjectHideFlags: 0
@@ -776,14 +766,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.4020617, y: 4.666305}
+    oldSize: {x: 0.91, y: 1.11}
     newSize: {x: 6.27, y: 8.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.4020617, y: 4.666305}
+  m_Size: {x: 0.93, y: 1.12}
   m_EdgeRadius: 0
 --- !u!50 &815619320
 Rigidbody2D:
@@ -828,6 +818,7 @@ MonoBehaviour:
   jumpOffWallBufferTime: 0.3
   jumpOffWallDuration: 0.2
   gravityModifier: 0.05
+  explosionPrefab: {fileID: 4689551020895270028, guid: 13cfe6b4e57d19d4390a2204c508f3eb, type: 3}
   lavaCollider: {fileID: 1750170644}
   spriteRenderer: {fileID: 815619322}
   standingUp: {fileID: 21300000, guid: 712b1079f3a8c45798886f4097738377, type: 3}
@@ -873,7 +864,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 712b1079f3a8c45798886f4097738377, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c92f243db16d9645a102162ddb817f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -892,8 +883,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815619318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: -1.5, z: -7.48}
-  m_LocalScale: {x: 0.21204244, y: 0.22244312, z: 0.4276}
+  m_LocalPosition: {x: -0.2069, y: -1.0919, z: -7.48}
+  m_LocalScale: {x: 0.78160363, y: 0.95, z: 0.4276}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1

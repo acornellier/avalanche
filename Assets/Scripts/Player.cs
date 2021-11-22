@@ -16,6 +16,7 @@ public class Player : GroundableObject
     float jumpOffWallDuration;
     [SerializeField]
     float gravityModifier;
+    public GameObject explosionPrefab;
 
     public Collider2D lavaCollider;
     public SpriteRenderer spriteRenderer;
@@ -27,10 +28,14 @@ public class Player : GroundableObject
     float lastHangingTimestamp;
     float jumpedOffWallTimestamp;
 
+    float melting = 0f;
+    Renderer rend;
+
     public event System.Action OnPlayerDeath;
 
     protected override void Start()
     {
+        rend = GetComponent<Renderer> ();
         base.Start();
         screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
     }
@@ -45,12 +50,42 @@ public class Player : GroundableObject
         var isGrounded = IsGrounded();
         var isCeilinged = IsCeilinged();
 
-        // check for death
-        if (isGrounded && isCeilinged || body.IsTouching(lavaCollider))
+        // check for lava death
+        if (body.IsTouching(lavaCollider))
         {
-            OnPlayerDeath?.Invoke();
-            gameObject.SetActive(false);
-            return;
+            if (melting > 1) {
+                OnPlayerDeath?.Invoke();
+                gameObject.SetActive(false);
+                return;
+            }
+            melting += 0.01f;
+            rend.material.color = Color.Lerp(Color.white, Color.black, melting);
+        }
+
+        // check for squishing death
+        if (isGrounded && isCeilinged)
+        {
+            Vector3 scaleChange = new Vector3(0, -0.01f, 0);
+            transform.localScale += scaleChange;
+            if (transform.localScale.y < 0.10f){
+                var explodePosition = new Vector2(
+                    transform.position.x,
+                    transform.position.y
+                );
+
+                GameObject newBlock = Instantiate(
+                    explosionPrefab,
+                    explodePosition,
+                    Quaternion.identity
+                );
+                OnPlayerDeath?.Invoke();
+                gameObject.SetActive(false);
+                return;
+            }
+        }
+        else if (transform.localScale.y < 0.95f) {  
+            Vector3 scaleChange = new Vector3(0, 0.01f, 0);
+            transform.localScale += scaleChange;
         }
 
         var wallDirection = GetWallDirection();

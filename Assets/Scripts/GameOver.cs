@@ -10,6 +10,7 @@ public class GameOver : MonoBehaviour
     public GameObject gameBackground;
     public GameObject starHolder;
     public GameObject lava;
+    public GameObject playerObject;
     public Text score;
     bool gameOver;
     public Transform player;
@@ -37,5 +38,7 @@ public class GameOver : MonoBehaviour
         gameOver = true;
         camera.transform.position = new Vector3(12.2f, 14.61f, -12.13f);
         Camera.main.orthographicSize = 20;
+ 
+        Destroy (playerObject);
     }
 }
