@@ -39,7 +39,7 @@ public class GameOver : MonoBehaviour
         );
 
         StartCoroutine(ZoomOutCamera(Mathf.Round(player.position.y)));
-        Destroy (playerObject);
+        // Destroy (playerObject);
 
         GameObject newBlock = Instantiate(
             explosionPrefab,

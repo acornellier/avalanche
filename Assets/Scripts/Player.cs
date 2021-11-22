@@ -16,7 +16,6 @@ public class Player : GroundableObject
     float jumpOffWallDuration;
     [SerializeField]
     float gravityModifier;
-    public GameObject explosionPrefab;
 
     public Collider2D lavaCollider;
     public SpriteRenderer spriteRenderer;
@@ -55,6 +54,7 @@ public class Player : GroundableObject
         {
             if (melting > 1) {
                 OnPlayerDeath?.Invoke();
+                gameObject.SetActive (false);
                 return;
             }
             melting += 0.01f;
@@ -64,21 +64,11 @@ public class Player : GroundableObject
         // check for squishing death
         if (isGrounded && isCeilinged)
         {
-            Vector3 scaleChange = new Vector3(0, -0.01f, 0);
+            Vector3 scaleChange = new Vector3(0, -0.005f, 0);
             transform.localScale += scaleChange;
             if (transform.localScale.y < 0.10f){
-                var explodePosition = new Vector2(
-                    transform.position.x,
-                    transform.position.y - 0.5f
-                );
-
-                GameObject newBlock = Instantiate(
-                    explosionPrefab,
-                    explodePosition,
-                    Quaternion.identity
-                );
-                
                 OnPlayerDeath?.Invoke();
+                gameObject.SetActive (false);
                 return;
             }
         }
