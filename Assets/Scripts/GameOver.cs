@@ -15,6 +15,7 @@ public class GameOver : MonoBehaviour
     bool gameOver;
     public Transform player;
     public GameObject camera;
+    public GameObject explosionPrefab;
 
     void Start() {
         FindObjectOfType<Player>().OnPlayerDeath += OnGameOver;
@@ -30,15 +31,33 @@ public class GameOver : MonoBehaviour
     }
 
     void OnGameOver() {
+        float positionX = player.position.x;
+        float positionY = player.position.y;
+        var explodePosition = new Vector2(
+            positionX,
+            positionY - 0.5f
+        );
+
+        StartCoroutine(ZoomOutCamera(Mathf.Round(player.position.y)));
+        Destroy (playerObject);
+
+        GameObject newBlock = Instantiate(
+            explosionPrefab,
+            explodePosition,
+            Quaternion.identity
+        );
+        
+    }
+
+    IEnumerator ZoomOutCamera(float result) {
+        yield return new WaitForSeconds(1);
         gameOverScreen.SetActive (true);
         gameBackground.SetActive (false);
         starHolder.SetActive (false);
         lava.SetActive (false);
-        score.text = $"{Mathf.Round(player.position.y)}ft";
+        score.text = $"{result}ft";
         gameOver = true;
         camera.transform.position = new Vector3(12.2f, 14.61f, -12.13f);
         Camera.main.orthographicSize = 20;
- 
-        Destroy (playerObject);
     }
 }

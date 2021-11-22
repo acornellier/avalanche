@@ -30,6 +30,9 @@ public class StarSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null) {
+            return;
+        }
         if (player.transform.position.y < nextSpawnDistance)
             return;
         nextSpawnDistance = nextSpawnDistance + distanceBetweenSpawns;

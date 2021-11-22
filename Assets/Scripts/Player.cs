@@ -55,7 +55,6 @@ public class Player : GroundableObject
         {
             if (melting > 1) {
                 OnPlayerDeath?.Invoke();
-                gameObject.SetActive(false);
                 return;
             }
             melting += 0.01f;
@@ -70,7 +69,7 @@ public class Player : GroundableObject
             if (transform.localScale.y < 0.10f){
                 var explodePosition = new Vector2(
                     transform.position.x,
-                    transform.position.y
+                    transform.position.y - 0.5f
                 );
 
                 GameObject newBlock = Instantiate(
@@ -78,8 +77,8 @@ public class Player : GroundableObject
                     explodePosition,
                     Quaternion.identity
                 );
+                
                 OnPlayerDeath?.Invoke();
-                gameObject.SetActive(false);
                 return;
             }
         }
