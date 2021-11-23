@@ -190,6 +190,7 @@ MonoBehaviour:
   score: {fileID: 1169385147}
   player: {fileID: 815619324}
   camera: {fileID: 519420028}
+  explosionPrefab: {fileID: 4689551020895270028, guid: 13cfe6b4e57d19d4390a2204c508f3eb, type: 3}
 --- !u!4 &242281842
 Transform:
   m_ObjectHideFlags: 0
@@ -787,10 +788,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 9.44
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 0
@@ -811,14 +812,13 @@ MonoBehaviour:
   jumpableMask:
     serializedVersion: 2
     m_Bits: 64
-  walkSpeed: 10
-  jumpSpeed: 15
-  jumpOffWallSpeed: 10
+  walkSpeed: 15
+  jumpSpeed: 35
+  jumpOffWallSpeed: 20
   slideSpeed: 2
   jumpOffWallBufferTime: 0.3
   jumpOffWallDuration: 0.2
   gravityModifier: 0.05
-  explosionPrefab: {fileID: 4689551020895270028, guid: 13cfe6b4e57d19d4390a2204c508f3eb, type: 3}
   lavaCollider: {fileID: 1750170644}
   spriteRenderer: {fileID: 815619322}
   standingUp: {fileID: 21300000, guid: 712b1079f3a8c45798886f4097738377, type: 3}
@@ -884,7 +884,7 @@ Transform:
   m_GameObject: {fileID: 815619318}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.2069, y: -1.0919, z: -7.48}
-  m_LocalScale: {x: 0.78160363, y: 0.95, z: 0.4276}
+  m_LocalScale: {x: 0.78, y: 0.95, z: 0.42}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1

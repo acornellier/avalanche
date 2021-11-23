@@ -72,6 +72,15 @@ public class Player : GroundableObject
                 return;
             }
         }
+        else if (isCeilinged){
+            Vector3 scaleChange = new Vector3(-0.3f, -0.3f, -0.3f);
+            transform.localScale += scaleChange;
+            newVelocity.y = jumpSpeed;
+        }
+        else if (transform.localScale.x < 0.78f) {  
+            Vector3 scaleChange = new Vector3(0.01f, 0.01f, 0.01f);
+            transform.localScale += scaleChange;
+        }
         else if (transform.localScale.y < 0.95f) {  
             Vector3 scaleChange = new Vector3(0, 0.01f, 0);
             transform.localScale += scaleChange;
