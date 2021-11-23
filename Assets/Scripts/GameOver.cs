@@ -15,10 +15,13 @@ public class GameOver : MonoBehaviour
     bool gameOver;
     public Transform player;
     public GameObject camera;
+    float maxHeight;
     public GameObject explosionPrefab;
 
     void Start() {
+        maxHeight = 0;
         FindObjectOfType<Player>().OnPlayerDeath += OnGameOver;
+        FindObjectOfType<Player>().OnPlayerSquishDeath += OnSquishGameOver;
     }
 
     void Update()
@@ -27,35 +30,38 @@ public class GameOver : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space)) {
                 SceneManager.LoadScene(0);
             }
-        }    
+        }  
+        if (player.transform.position.y > maxHeight) {
+            maxHeight = player.transform.position.y;
+        }  
     }
 
-    void OnGameOver() {
-        float positionX = player.position.x;
-        float positionY = player.position.y;
+    IEnumerator Explode() {
         var explodePosition = new Vector2(
-            positionX,
-            positionY - 0.5f
+            player.transform.position.x,
+            player.transform.position.y
         );
-
-        StartCoroutine(ZoomOutCamera(Mathf.Round(player.position.y)));
-        // Destroy (playerObject);
 
         GameObject newBlock = Instantiate(
             explosionPrefab,
             explodePosition,
             Quaternion.identity
         );
-        
+        yield return new WaitForSeconds(1);
+
+        OnGameOver();
     }
 
-    IEnumerator ZoomOutCamera(float result) {
-        yield return new WaitForSeconds(1);
+    void OnSquishGameOver() {
+        StartCoroutine(Explode());
+    }
+
+    void OnGameOver() {
         gameOverScreen.SetActive (true);
         gameBackground.SetActive (false);
         starHolder.SetActive (false);
         lava.SetActive (false);
-        score.text = $"{result}ft";
+        score.text = $"{maxHeight}ft";
         gameOver = true;
         camera.transform.position = new Vector3(12.2f, 14.61f, -12.13f);
         Camera.main.orthographicSize = 20;

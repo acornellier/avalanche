@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : GroundableObject
@@ -31,6 +33,7 @@ public class Player : GroundableObject
     Renderer rend;
 
     public event System.Action OnPlayerDeath;
+    public event System.Action OnPlayerSquishDeath;
 
     protected override void Start()
     {
@@ -48,6 +51,15 @@ public class Player : GroundableObject
 
         var isGrounded = IsGrounded();
         var isCeilinged = IsCeilinged();
+
+        var wallDirection = GetWallDirection();
+        var justJumpedOffWall = Time.time - jumpedOffWallTimestamp < jumpOffWallDuration;
+        var isHanging =
+            !justJumpedOffWall
+            && (
+                (wallDirection < 0 && horizontalInput < 0)
+                || (wallDirection > 0 && horizontalInput > 0)
+            );
 
         // check for lava death
         if (body.IsTouching(lavaCollider))
@@ -67,33 +79,23 @@ public class Player : GroundableObject
             Vector3 scaleChange = new Vector3(0, -0.005f, 0);
             transform.localScale += scaleChange;
             if (transform.localScale.y < 0.10f){
-                OnPlayerDeath?.Invoke();
+                OnPlayerSquishDeath?.Invoke();
                 gameObject.SetActive (false);
                 return;
             }
         }
-        else if (isCeilinged){
-            Vector3 scaleChange = new Vector3(-0.3f, -0.3f, -0.3f);
+        else if (isCeilinged && isHanging && transform.localScale.x > 0.58f){
+            Vector3 scaleChange = new Vector3(-0.2f, -0.2f, -0.2f);
             transform.localScale += scaleChange;
-            newVelocity.y = jumpSpeed;
         }
         else if (transform.localScale.x < 0.78f) {  
-            Vector3 scaleChange = new Vector3(0.01f, 0.01f, 0.01f);
+            Vector3 scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
             transform.localScale += scaleChange;
         }
         else if (transform.localScale.y < 0.95f) {  
             Vector3 scaleChange = new Vector3(0, 0.01f, 0);
             transform.localScale += scaleChange;
         }
-
-        var wallDirection = GetWallDirection();
-        var justJumpedOffWall = Time.time - jumpedOffWallTimestamp < jumpOffWallDuration;
-        var isHanging =
-            !justJumpedOffWall
-            && (
-                (wallDirection < 0 && horizontalInput < 0)
-                || (wallDirection > 0 && horizontalInput > 0)
-            );
 
         if (isHanging)
             lastHangingTimestamp = Time.time;
@@ -130,7 +132,7 @@ public class Player : GroundableObject
                 newVelocity = new Vector2(jumpOffWallSpeed * -wallDirection, jumpSpeed);
                 jumpedOffWallTimestamp = Time.time;
             }
-            Debug.LogWarning($"JUMPED {isGrounded} {isHanging} {newVelocity}");
+            // Debug.LogWarning($"JUMPED {isGrounded} {isHanging} {newVelocity}");
         }
         else if (isHanging)
         {
@@ -148,4 +150,6 @@ public class Player : GroundableObject
             transform.position = new Vector2(-screenHalfWidth, transform.position.y);
         }
     }
+
+    
 }

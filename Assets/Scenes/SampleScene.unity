@@ -813,7 +813,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   walkSpeed: 15
-  jumpSpeed: 35
+  jumpSpeed: 30
   jumpOffWallSpeed: 20
   slideSpeed: 2
   jumpOffWallBufferTime: 0.3

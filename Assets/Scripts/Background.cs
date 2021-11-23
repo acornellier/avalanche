@@ -9,7 +9,6 @@ public class Background : MonoBehaviour
     Color colorStart = Color.white;
     Color colorMiddle = Color.blue;
     Color colorEnd = Color.black;
-    float duration = 1.0f;
 
     void Start()
     {
