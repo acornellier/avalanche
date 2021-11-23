@@ -32,7 +32,7 @@ public class GameOver : MonoBehaviour
             }
         }  
         if (player.transform.position.y > maxHeight) {
-            maxHeight = player.transform.position.y;
+            maxHeight = Mathf.Round(player.transform.position.y);
         }  
     }
 
@@ -63,7 +63,7 @@ public class GameOver : MonoBehaviour
         lava.SetActive (false);
         score.text = $"{maxHeight}ft";
         gameOver = true;
-        camera.transform.position = new Vector3(12.2f, 14.61f, -12.13f);
+        camera.transform.position = new Vector3(21.76f, 18.11f, -12.13f);
         Camera.main.orthographicSize = 20;
     }
 }

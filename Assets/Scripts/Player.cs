@@ -89,7 +89,7 @@ public class Player : GroundableObject
             transform.localScale += scaleChange;
         }
         else if (transform.localScale.x < 0.78f) {  
-            Vector3 scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
+            Vector3 scaleChange = new Vector3(0.01f, 0.01f, 0.01f);
             transform.localScale += scaleChange;
         }
         else if (transform.localScale.y < 0.95f) {  
