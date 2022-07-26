@@ -2,55 +2,63 @@ using UnityEngine;
 
 public class StarSpawner : MonoBehaviour
 {
-    public Player player;
-    public GameObject starPrefab;
-    public GameObject starHolder;
-    public float distanceBetweenSpawns = 1;
+    [SerializeField] Player player;
+    [SerializeField] GameObject starPrefab;
+    [SerializeField] GameObject starHolder;
 
-    float nextSpawnDistance;
-    int nextStarName;
+    float _distanceBetweenSpawns = 1;
+    float _nextSpawnDistance;
+    int _nextStarName;
 
     public Vector2 spawnSizeMinMax;
 
-    Vector2 screenHalfSizeWorldUnits;
+    Vector2 _screenHalfSizeWorldUnits;
 
-    // Start is called before the first frame update
     void Start()
     {
-        nextSpawnDistance = 0;
+        _nextSpawnDistance = 0;
         player = FindObjectOfType<Player>();
-        screenHalfSizeWorldUnits = new Vector2(
+        _screenHalfSizeWorldUnits = new Vector2(
             Camera.main.aspect * Camera.main.orthographicSize,
             Camera.main.orthographicSize
         );
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (player == null)
             return;
-        if (player.transform.position.y < nextSpawnDistance)
-            return;
-        nextSpawnDistance = nextSpawnDistance + distanceBetweenSpawns;
-        var spawnSize = Random.Range(spawnSizeMinMax.x, spawnSizeMinMax.y);
-        if (player.transform.position.y < 30)
-            spawnSize = spawnSize / 4;
 
-        if (player.transform.position.y > 50)
-            distanceBetweenSpawns = 0.5f;
-        if (player.transform.position.y > 100)
-            distanceBetweenSpawns = 0.4f;
-        if (player.transform.position.y > 150)
-            distanceBetweenSpawns = 0.3f;
-        spawnSize = spawnSize / 3;
+        if (player.transform.position.y < _nextSpawnDistance)
+            return;
+
+        _nextSpawnDistance += _distanceBetweenSpawns;
+
+        var spawnSize = Random.Range(spawnSizeMinMax.x, spawnSizeMinMax.y);
+        switch (player.transform.position.y)
+        {
+            case < 30:
+                spawnSize /= 4;
+                break;
+            case > 150:
+                _distanceBetweenSpawns = 0.3f;
+                break;
+            case > 100:
+                _distanceBetweenSpawns = 0.4f;
+                break;
+            case > 50:
+                _distanceBetweenSpawns = 0.5f;
+                break;
+        }
+
+        spawnSize /= 3;
 
         var spawnPosition = new Vector2(
             Random.Range(
-                -screenHalfSizeWorldUnits.x + spawnSize / 2,
-                screenHalfSizeWorldUnits.x - spawnSize / 2
+                -_screenHalfSizeWorldUnits.x + spawnSize / 2,
+                _screenHalfSizeWorldUnits.x - spawnSize / 2
             ),
-            nextSpawnDistance + 2 * screenHalfSizeWorldUnits.y
+            _nextSpawnDistance + 2 * _screenHalfSizeWorldUnits.y
         );
 
         var newStar = Instantiate(
@@ -59,7 +67,7 @@ public class StarSpawner : MonoBehaviour
             Quaternion.identity
         );
         newStar.transform.localScale = Vector2.one * spawnSize;
-        newStar.name = $"Star {nextStarName++}";
+        newStar.name = $"Star {_nextStarName++}";
         newStar.transform.parent = starHolder.transform;
     }
 }

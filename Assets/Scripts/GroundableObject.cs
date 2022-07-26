@@ -6,6 +6,7 @@ public class GroundableObject : MonoBehaviour
 
     protected BoxCollider2D boxCollider;
     protected ContactFilter2D contactFilter;
+    protected Rigidbody2D body;
 
     readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[8];
     const float GroundEpsilon = 0.05f;
@@ -14,6 +15,7 @@ public class GroundableObject : MonoBehaviour
     protected virtual void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
+        body = GetComponent<Rigidbody2D>();
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = jumpableMask;
     }

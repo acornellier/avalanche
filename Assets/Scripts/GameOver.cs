@@ -5,32 +5,31 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    public GameObject gameOverScreen;
-    public GameObject gameBackground;
-    public GameObject starHolder;
-    public GameObject lava;
-    public GameObject playerObject;
-    public Text score;
-    bool gameOver;
-    public Transform player;
-    public GameObject camera;
-    float maxHeight;
-    public GameObject explosionPrefab;
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] GameObject gameBackground;
+    [SerializeField] GameObject starHolder;
+    [SerializeField] GameObject lava;
+    [SerializeField] Text score;
+    [SerializeField] Transform player;
+    [SerializeField] GameObject explosionPrefab;
+
+    bool _gameOver;
+    float _maxHeight;
 
     void Start()
     {
-        maxHeight = 0;
+        _maxHeight = 0;
         FindObjectOfType<Player>().OnPlayerDeath += OnGameOver;
         FindObjectOfType<Player>().OnPlayerSquishDeath += OnSquishGameOver;
     }
 
     void Update()
     {
-        if (gameOver)
+        if (_gameOver)
             if (Input.GetKeyDown(KeyCode.Space))
                 SceneManager.LoadScene(0);
-        if (player.transform.position.y > maxHeight)
-            maxHeight = Mathf.Round(player.transform.position.y);
+        if (player.transform.position.y > _maxHeight)
+            _maxHeight = Mathf.Round(player.transform.position.y);
     }
 
     IEnumerator Explode()
@@ -61,9 +60,9 @@ public class GameOver : MonoBehaviour
         gameBackground.SetActive(false);
         starHolder.SetActive(false);
         lava.SetActive(false);
-        score.text = $"{maxHeight}ft";
-        gameOver = true;
-        camera.transform.position = new Vector3(21.76f, 18.11f, -12.13f);
+        score.text = $"{_maxHeight}ft";
+        _gameOver = true;
+        Camera.main.transform.position = new Vector3(21.76f, 18.11f, -12.13f);
         Camera.main.orthographicSize = 20;
     }
 }

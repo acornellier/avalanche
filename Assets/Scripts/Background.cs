@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    public Transform player;
-    Renderer rend;
+    [SerializeField] Transform player;
+    Renderer _rend;
+
     readonly Color _colorStart = Color.white;
     readonly Color _colorMiddle = Color.blue;
     readonly Color _colorEnd = Color.black;
 
     void Start()
     {
-        rend = GetComponent<Renderer>();
+        _rend = GetComponent<Renderer>();
     }
 
     void Update()
@@ -20,16 +21,17 @@ public class Background : MonoBehaviour
             player.position.y + 1,
             transform.position.z
         );
-        var lerp = .1f;
+
+        float lerp;
         switch (player.position.y)
         {
             case < 97:
                 lerp = (player.position.y + 3) / 110;
-                rend.material.color = Color.Lerp(_colorStart, _colorMiddle, lerp);
+                _rend.material.color = Color.Lerp(_colorStart, _colorMiddle, lerp);
                 break;
             case < 197:
                 lerp = (player.position.y - 97) / 110;
-                rend.material.color = Color.Lerp(_colorMiddle, _colorEnd, lerp);
+                _rend.material.color = Color.Lerp(_colorMiddle, _colorEnd, lerp);
                 break;
         }
     }

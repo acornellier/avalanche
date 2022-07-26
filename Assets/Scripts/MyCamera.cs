@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MyCamera : MonoBehaviour
 {
-    public Transform player;
-    public bool gameOver;
+    [SerializeField] Transform player;
+    [SerializeField] bool gameOver;
 
     void Start()
     {

@@ -284,11 +284,11 @@ RectTransform:
   m_Father: {fileID: 1437936286}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 117.96997, y: 324.00003}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -23, y: -8}
   m_SizeDelta: {x: 526.3773, y: 141.5231}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 1}
 --- !u!1 &416987544
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +499,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.5331445
+  orthographic size: 6.9289637
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -612,11 +612,11 @@ RectTransform:
   m_Father: {fileID: 1437936286}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 214, y: 252}
-  m_SizeDelta: {x: 334.3115, y: 148.9102}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -22.999939, y: -80.99997}
+  m_SizeDelta: {x: 334.31152, y: 148.91022}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &759342021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,7 +829,9 @@ MonoBehaviour:
   slideSpeed: 2
   jumpOffWallBufferTime: 0.3
   jumpOffWallDuration: 0.2
-  gravityModifier: 0.05
+  shrinkRate: 50
+  expandRate: 3
+  body: {fileID: 0}
   lavaCollider: {fileID: 1750170644}
   spriteRenderer: {fileID: 815619322}
   standingUp: {fileID: 21300000, guid: 712b1079f3a8c45798886f4097738377, type: 3}

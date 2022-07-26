@@ -5,10 +5,10 @@ using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
-    public Player player;
-    public GameObject fallingBlockPrefab;
-    public GameObject blockHolder;
-    public float secondsBetweenSpawns = 1;
+    [SerializeField] Player player;
+    [SerializeField] GameObject fallingBlockPrefab;
+    [SerializeField] GameObject blockHolder;
+    [SerializeField] float secondsBetweenSpawns = 1;
 
     float _nextSpawnTime;
     int _nextBlockName;

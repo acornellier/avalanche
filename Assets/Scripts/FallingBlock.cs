@@ -17,6 +17,5 @@ public class FallingBlock : GroundableObject
             return;
 
         _grounded = true;
-        // GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
     }
 }

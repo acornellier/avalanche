@@ -3,26 +3,26 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
-    float highscore;
-    public Text highscoreText;
-    public Text heightText;
-    public Transform player;
+    [SerializeField] Text highscoreText;
+    [SerializeField] Text heightText;
+    [SerializeField] Transform player;
 
-    float initialHeight;
+    float _highscore;
+    float _initialHeight;
 
     void Start()
     {
-        initialHeight = player.position.y;
+        _initialHeight = player.position.y;
     }
 
     void Update()
     {
-        var curHeight = Mathf.Round(player.position.y - initialHeight);
+        var curHeight = Mathf.Round(player.position.y - _initialHeight);
         heightText.text = $"{curHeight}ft";
-        if (player.position.y > highscore)
-        {
-            highscore = player.position.y;
-            highscoreText.text = $"{Mathf.Round(player.position.y)}ft";
-        }
+        if (player.position.y <= _highscore)
+            return;
+
+        _highscore = player.position.y;
+        highscoreText.text = $"{Mathf.Round(_highscore)}ft";
     }
 }

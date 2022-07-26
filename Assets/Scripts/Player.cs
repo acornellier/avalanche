@@ -12,8 +12,6 @@ public class Player : GroundableObject
     [SerializeField] float shrinkRate = 1;
     [SerializeField] float expandRate = 0.1f;
 
-    [SerializeField] Rigidbody2D body;
-
     public Collider2D lavaCollider;
     public SpriteRenderer spriteRenderer;
     public Sprite standingUp;
@@ -35,7 +33,6 @@ public class Player : GroundableObject
     {
         base.Start();
         _rend = GetComponent<Renderer>();
-        body = GetComponent<Rigidbody2D>();
         _screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
         _startingScale = transform.localScale;
     }
