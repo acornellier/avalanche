@@ -11,7 +11,6 @@ public class GameOver : MonoBehaviour
     [SerializeField] GameObject lava;
     [SerializeField] Text score;
     [SerializeField] Transform player;
-    [SerializeField] GameObject explosionPrefab;
 
     bool _gameOver;
     float _maxHeight;
@@ -20,7 +19,6 @@ public class GameOver : MonoBehaviour
     {
         _maxHeight = 0;
         FindObjectOfType<Player>().OnPlayerDeath += OnGameOver;
-        FindObjectOfType<Player>().OnPlayerSquishDeath += OnSquishGameOver;
     }
 
     void Update()
@@ -30,28 +28,6 @@ public class GameOver : MonoBehaviour
                 SceneManager.LoadScene(0);
         if (player.transform.position.y > _maxHeight)
             _maxHeight = Mathf.Round(player.transform.position.y);
-    }
-
-    IEnumerator Explode()
-    {
-        var explodePosition = new Vector2(
-            player.transform.position.x,
-            player.transform.position.y
-        );
-
-        var newBlock = Instantiate(
-            explosionPrefab,
-            explodePosition,
-            Quaternion.identity
-        );
-        yield return new WaitForSeconds(1);
-
-        OnGameOver();
-    }
-
-    void OnSquishGameOver()
-    {
-        StartCoroutine(Explode());
     }
 
     void OnGameOver()

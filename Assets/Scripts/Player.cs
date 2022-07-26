@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : GroundableObject
@@ -11,38 +12,33 @@ public class Player : GroundableObject
     [SerializeField] float jumpOffWallDuration;
     [SerializeField] float shrinkRate = 1;
     [SerializeField] float expandRate = 0.1f;
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] Collider2D lavaCollider;
 
-    public Collider2D lavaCollider;
-    public SpriteRenderer spriteRenderer;
-    public Sprite standingUp;
-    public Sprite movingRight;
-    public Sprite movingLeft;
-
+    Renderer _renderer;
     Vector3 _startingScale;
     float _screenHalfWidth;
     float _lastHangingTimestamp;
     float _jumpedOffWallTimestamp;
-
-    float _melting;
-    Renderer _rend;
+    float _timeSpentMelting;
+    bool _isDead;
 
     public event Action OnPlayerDeath;
-    public event Action OnPlayerSquishDeath;
 
     protected override void Start()
     {
         base.Start();
-        _rend = GetComponent<Renderer>();
+        _renderer = GetComponent<Renderer>();
         _screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
         _startingScale = transform.localScale;
     }
 
     void Update()
     {
+        if (_isDead) return;
+
         var newVelocity = body.velocity;
         var horizontalInput = Input.GetAxisRaw("Horizontal");
-
-        var justPressedJump = Input.GetKeyDown(KeyCode.UpArrow);
 
         var isGrounded = IsGrounded();
         var isCeilinged = IsCeilinged();
@@ -50,7 +46,9 @@ public class Player : GroundableObject
         var wallDirection = GetWallDirection();
         var justJumpedOffWall = Time.time - _jumpedOffWallTimestamp < jumpOffWallDuration;
         var isHanging =
-            !justJumpedOffWall
+            !isGrounded
+            && !justJumpedOffWall
+            && body.velocity.y <= 0
             && (
                 (wallDirection < 0 && horizontalInput < 0)
                 || (wallDirection > 0 && horizontalInput > 0)
@@ -59,15 +57,14 @@ public class Player : GroundableObject
         // check for lava death
         if (body.IsTouching(lavaCollider))
         {
-            if (_melting > 1)
+            if (_timeSpentMelting > 1)
             {
-                OnPlayerDeath?.Invoke();
-                gameObject.SetActive(false);
+                StartCoroutine(Explode());
                 return;
             }
 
-            _melting += 0.01f;
-            _rend.material.color = Color.Lerp(Color.white, Color.black, _melting);
+            _timeSpentMelting += Time.deltaTime;
+            _renderer.material.color = Color.Lerp(Color.white, Color.black, _timeSpentMelting);
         }
 
         // check for squishing death
@@ -78,8 +75,7 @@ public class Player : GroundableObject
 
             if (transform.localScale.y < 0.1 * _startingScale.y)
             {
-                OnPlayerSquishDeath?.Invoke();
-                gameObject.SetActive(false);
+                StartCoroutine(Explode());
                 return;
             }
         }
@@ -93,23 +89,14 @@ public class Player : GroundableObject
             _lastHangingTimestamp = Time.time;
 
         var nextToWallAndNotPushingAway = wallDirection * horizontalInput > 0;
-        // spriteRenderer.sprite = standingUp;
 
         // fixes sticking to walls if left/right is being held
         if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall)
             newVelocity.x = 0;
         else
             newVelocity.x = Mathf.Lerp(body.velocity.x, horizontalInput * walkSpeed, 0.05f);
-        // if (horizontalInput == 1)
-        // {
-        //     spriteRenderer.sprite = movingRight;
-        // }
-        // else if (horizontalInput == -1)
-        // {
-        //     spriteRenderer.sprite = movingLeft;
-        // }
 
-        if (justPressedJump)
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (isGrounded)
             {
@@ -120,7 +107,6 @@ public class Player : GroundableObject
                 newVelocity = new Vector2(jumpOffWallSpeed * -wallDirection, jumpSpeed);
                 _jumpedOffWallTimestamp = Time.time;
             }
-            // Debug.LogWarning($"JUMPED {isGrounded} {isHanging} {newVelocity}");
         }
         else if (isHanging)
         {
@@ -133,5 +119,13 @@ public class Player : GroundableObject
             transform.position = new Vector2(_screenHalfWidth, transform.position.y);
         else if (body.position.x > _screenHalfWidth)
             transform.position = new Vector2(-_screenHalfWidth, transform.position.y);
+    }
+
+    IEnumerator Explode()
+    {
+        _isDead = true;
+        explosion.Play();
+        while (explosion.isPlaying) yield return null;
+        OnPlayerDeath?.Invoke();
     }
 }

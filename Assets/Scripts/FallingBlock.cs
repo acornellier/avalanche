@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class FallingBlock : GroundableObject
 {
-    public float speed;
+    [SerializeField] float speed;
 
     bool _grounded;
+
+    protected override void Start()
+    {
+        base.Start();
+        SetRandomColor();
+    }
 
     void Update()
     {
@@ -17,5 +23,18 @@ public class FallingBlock : GroundableObject
             return;
 
         _grounded = true;
+    }
+
+    void SetRandomColor()
+    {
+        GetComponent<Renderer>().material.color = UnityEngine.Random.Range(0, 6) switch
+        {
+            0 => Color.yellow,
+            1 => Color.blue,
+            2 => Color.magenta,
+            3 => Color.red,
+            4 => Color.cyan,
+            _ => Color.green
+        };
     }
 }

@@ -8,7 +8,6 @@ public class MyCamera : MonoBehaviour
     void Start()
     {
         FindObjectOfType<Player>().OnPlayerDeath += OnGameOver;
-        FindObjectOfType<Player>().OnPlayerSquishDeath += OnGameOver;
     }
 
     void Update()

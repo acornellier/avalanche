@@ -1,7 +1,5 @@
-using System;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
@@ -30,7 +28,6 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        print(_gameOver);
         if (_gameOver || Time.time < _nextSpawnTime)
             return;
 
@@ -38,16 +35,10 @@ public class Spawner : MonoBehaviour
         var spawnSize = Random.Range(spawnSizeMinMax.x, spawnSizeMinMax.y);
 
         var newBlock = SpawnNonCollidingBlock(spawnSize);
+        if (newBlock == null)
+            return;
+
         newBlock.name = $"Block {_nextBlockName++}";
-        newBlock.GetComponent<Renderer>().material.color = Random.Range(0, 6) switch
-        {
-            0 => Color.yellow,
-            1 => Color.blue,
-            2 => Color.magenta,
-            3 => Color.red,
-            4 => Color.cyan,
-            _ => Color.green
-        };
     }
 
     GameObject SpawnNonCollidingBlock(float spawnSize)
@@ -82,11 +73,13 @@ public class Spawner : MonoBehaviour
                 return newBlock;
         }
 
-        throw new Exception("Failed to find a position to spawn a block after 10 attempts");
+        Debug.LogError("Failed to find a position to spawn a block after 10 attempts");
+        return null;
     }
 
     void OnGameOver()
     {
+        print("onGameOver");
         _gameOver = true;
     }
 }
