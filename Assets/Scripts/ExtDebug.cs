@@ -27,8 +27,8 @@ public static class ExtDebug
     )
     {
         direction.Normalize();
-        Box bottomBox = new Box(origin, halfExtents, orientation);
-        Box topBox = new Box(origin + (direction * distance), halfExtents, orientation);
+        var bottomBox = new Box(origin, halfExtents, orientation);
+        var topBox = new Box(origin + direction * distance, halfExtents, orientation);
 
         Debug.DrawLine(bottomBox.backBottomLeft, topBox.backBottomLeft, color);
         Debug.DrawLine(bottomBox.backBottomRight, topBox.backBottomRight, color);
@@ -52,6 +52,7 @@ public static class ExtDebug
     {
         DrawBox(new Box(origin, halfExtents, orientation), color);
     }
+
     public static void DrawBox(Box box, Color color)
     {
         Debug.DrawLine(box.frontTopLeft, box.frontTopRight, color);
@@ -76,69 +77,38 @@ public static class ExtDebug
         public Vector3 localFrontTopRight { get; private set; }
         public Vector3 localFrontBottomLeft { get; private set; }
         public Vector3 localFrontBottomRight { get; private set; }
-        public Vector3 localBackTopLeft
-        {
-            get { return -localFrontBottomRight; }
-        }
-        public Vector3 localBackTopRight
-        {
-            get { return -localFrontBottomLeft; }
-        }
-        public Vector3 localBackBottomLeft
-        {
-            get { return -localFrontTopRight; }
-        }
-        public Vector3 localBackBottomRight
-        {
-            get { return -localFrontTopLeft; }
-        }
+        public Vector3 localBackTopLeft => -localFrontBottomRight;
+        public Vector3 localBackTopRight => -localFrontBottomLeft;
+        public Vector3 localBackBottomLeft => -localFrontTopRight;
 
-        public Vector3 frontTopLeft
-        {
-            get { return localFrontTopLeft + origin; }
-        }
-        public Vector3 frontTopRight
-        {
-            get { return localFrontTopRight + origin; }
-        }
-        public Vector3 frontBottomLeft
-        {
-            get { return localFrontBottomLeft + origin; }
-        }
-        public Vector3 frontBottomRight
-        {
-            get { return localFrontBottomRight + origin; }
-        }
-        public Vector3 backTopLeft
-        {
-            get { return localBackTopLeft + origin; }
-        }
-        public Vector3 backTopRight
-        {
-            get { return localBackTopRight + origin; }
-        }
-        public Vector3 backBottomLeft
-        {
-            get { return localBackBottomLeft + origin; }
-        }
-        public Vector3 backBottomRight
-        {
-            get { return localBackBottomRight + origin; }
-        }
+        public Vector3 localBackBottomRight => -localFrontTopLeft;
 
-        public Vector3 origin { get; private set; }
+        public Vector3 frontTopLeft => localFrontTopLeft + origin;
+        public Vector3 frontTopRight => localFrontTopRight + origin;
+
+        public Vector3 frontBottomLeft => localFrontBottomLeft + origin;
+
+        public Vector3 frontBottomRight => localFrontBottomRight + origin;
+        public Vector3 backTopLeft => localBackTopLeft + origin;
+
+        public Vector3 backTopRight => localBackTopRight + origin;
+        public Vector3 backBottomLeft => localBackBottomLeft + origin;
+        public Vector3 backBottomRight => localBackBottomRight + origin;
+
+        public Vector3 origin { get; }
 
         public Box(Vector3 origin, Vector3 halfExtents, Quaternion orientation)
             : this(origin, halfExtents)
         {
             Rotate(orientation);
         }
+
         public Box(Vector3 origin, Vector3 halfExtents)
         {
-            this.localFrontTopLeft = new Vector3(-halfExtents.x, halfExtents.y, -halfExtents.z);
-            this.localFrontTopRight = new Vector3(halfExtents.x, halfExtents.y, -halfExtents.z);
-            this.localFrontBottomLeft = new Vector3(-halfExtents.x, -halfExtents.y, -halfExtents.z);
-            this.localFrontBottomRight = new Vector3(halfExtents.x, -halfExtents.y, -halfExtents.z);
+            localFrontTopLeft = new Vector3(-halfExtents.x, halfExtents.y, -halfExtents.z);
+            localFrontTopRight = new Vector3(halfExtents.x, halfExtents.y, -halfExtents.z);
+            localFrontBottomLeft = new Vector3(-halfExtents.x, -halfExtents.y, -halfExtents.z);
+            localFrontBottomRight = new Vector3(halfExtents.x, -halfExtents.y, -halfExtents.z);
 
             this.origin = origin;
         }
@@ -171,12 +141,12 @@ public static class ExtDebug
     //This should work for all cast types
     static Vector3 CastCenterOnCollision(Vector3 origin, Vector3 direction, float hitInfoDistance)
     {
-        return origin + (direction.normalized * hitInfoDistance);
+        return origin + direction.normalized * hitInfoDistance;
     }
 
     static Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Quaternion rotation)
     {
-        Vector3 direction = point - pivot;
+        var direction = point - pivot;
         return pivot + rotation * direction;
     }
 }

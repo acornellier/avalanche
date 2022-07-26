@@ -2,31 +2,28 @@ using UnityEngine;
 
 public class GroundableObject : MonoBehaviour
 {
-    [SerializeField]
-    protected LayerMask jumpableMask;
+    [SerializeField] protected LayerMask jumpableMask;
 
     protected BoxCollider2D boxCollider;
-    protected Rigidbody2D body;
     protected ContactFilter2D contactFilter;
 
-    readonly RaycastHit2D[] hitBuffer = new RaycastHit2D[8];
-    readonly float groundEpsilon = 0.05f;
-    readonly float wallEpsilon = 0.01f;
+    readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[8];
+    const float GroundEpsilon = 0.05f;
+    const float WallEpsilon = 0.01f;
 
     protected virtual void Start()
     {
         boxCollider = GetComponent<BoxCollider2D>();
-        body = GetComponent<Rigidbody2D>();
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = jumpableMask;
     }
 
     protected bool IsGrounded()
     {
-        int numHits = boxCollider.Cast(Vector2.down, contactFilter, hitBuffer, groundEpsilon);
-        for (int hitIndex = 0; hitIndex < numHits; hitIndex++)
+        var numHits = boxCollider.Cast(Vector2.down, contactFilter, _hitBuffer, GroundEpsilon);
+        for (var hitIndex = 0; hitIndex < numHits; hitIndex++)
         {
-            var hit = hitBuffer[hitIndex];
+            var hit = _hitBuffer[hitIndex];
             if (hit.normal == Vector2.up)
                 return hit;
         }
@@ -36,10 +33,10 @@ public class GroundableObject : MonoBehaviour
 
     protected bool IsCeilinged()
     {
-        int numHits = boxCollider.Cast(Vector2.up, contactFilter, hitBuffer, groundEpsilon);
-        for (int hitIndex = 0; hitIndex < numHits; hitIndex++)
+        var numHits = boxCollider.Cast(Vector2.up, contactFilter, _hitBuffer, GroundEpsilon);
+        for (var hitIndex = 0; hitIndex < numHits; hitIndex++)
         {
-            var hit = hitBuffer[hitIndex];
+            var hit = _hitBuffer[hitIndex];
             if (hit.normal == Vector2.down)
                 return true;
         }
@@ -49,18 +46,18 @@ public class GroundableObject : MonoBehaviour
 
     protected float GetWallDirection()
     {
-        int numHits = boxCollider.Cast(Vector2.left, contactFilter, hitBuffer, wallEpsilon);
-        for (int hitIndex = 0; hitIndex < numHits; hitIndex++)
+        var numHits = boxCollider.Cast(Vector2.left, contactFilter, _hitBuffer, WallEpsilon);
+        for (var hitIndex = 0; hitIndex < numHits; hitIndex++)
         {
-            var hit = hitBuffer[hitIndex];
+            var hit = _hitBuffer[hitIndex];
             if (hit.normal == Vector2.right)
                 return -1;
         }
 
-        numHits = boxCollider.Cast(Vector2.right, contactFilter, hitBuffer, wallEpsilon);
-        for (int hitIndex = 0; hitIndex < numHits; hitIndex++)
+        numHits = boxCollider.Cast(Vector2.right, contactFilter, _hitBuffer, WallEpsilon);
+        for (var hitIndex = 0; hitIndex < numHits; hitIndex++)
         {
-            var hit = hitBuffer[hitIndex];
+            var hit = _hitBuffer[hitIndex];
             if (hit.normal == Vector2.left)
                 return 1;
         }

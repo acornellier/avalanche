@@ -4,19 +4,19 @@ public class FallingBlock : GroundableObject
 {
     public float speed;
 
-    bool grounded;
+    bool _grounded;
 
     void Update()
     {
-        if (grounded)
+        if (_grounded)
             return;
 
-        body.velocity = new Vector2(0, -speed);
+        transform.Translate(0, -speed * Time.deltaTime, 0);
 
-        if (IsGrounded())
-        {
-            grounded = true;
-            body.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
+         if (!IsGrounded())
+            return;
+
+        _grounded = true;
+        // GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
     }
 }

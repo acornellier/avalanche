@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Background : MonoBehaviour
 {
     public Transform player;
     Renderer rend;
-    Color colorStart = Color.white;
-    Color colorMiddle = Color.blue;
-    Color colorEnd = Color.black;
+    readonly Color _colorStart = Color.white;
+    readonly Color _colorMiddle = Color.blue;
+    readonly Color _colorEnd = Color.black;
 
     void Start()
     {
-        rend = GetComponent<Renderer> ();
+        rend = GetComponent<Renderer>();
     }
 
     void Update()
@@ -22,15 +20,17 @@ public class Background : MonoBehaviour
             player.position.y + 1,
             transform.position.z
         );
-        float lerp = .1f;
-        if (player.position.y < 97) {
-            lerp = (player.position.y + 3) / 110;
-            rend.material.color = Color.Lerp(colorStart, colorMiddle, lerp);
+        var lerp = .1f;
+        switch (player.position.y)
+        {
+            case < 97:
+                lerp = (player.position.y + 3) / 110;
+                rend.material.color = Color.Lerp(_colorStart, _colorMiddle, lerp);
+                break;
+            case < 197:
+                lerp = (player.position.y - 97) / 110;
+                rend.material.color = Color.Lerp(_colorMiddle, _colorEnd, lerp);
+                break;
         }
-        else if (player.position.y < 197) {
-            lerp = (player.position.y - 97) / 110;
-            rend.material.color = Color.Lerp(colorMiddle, colorEnd, lerp);
-        }
-        
     }
 }

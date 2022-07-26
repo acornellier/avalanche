@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
@@ -18,7 +17,8 @@ public class GameOver : MonoBehaviour
     float maxHeight;
     public GameObject explosionPrefab;
 
-    void Start() {
+    void Start()
+    {
         maxHeight = 0;
         FindObjectOfType<Player>().OnPlayerDeath += OnGameOver;
         FindObjectOfType<Player>().OnPlayerSquishDeath += OnSquishGameOver;
@@ -26,23 +26,21 @@ public class GameOver : MonoBehaviour
 
     void Update()
     {
-        if (gameOver) {
-            if (Input.GetKeyDown(KeyCode.Space)) {
+        if (gameOver)
+            if (Input.GetKeyDown(KeyCode.Space))
                 SceneManager.LoadScene(0);
-            }
-        }  
-        if (player.transform.position.y > maxHeight) {
+        if (player.transform.position.y > maxHeight)
             maxHeight = Mathf.Round(player.transform.position.y);
-        }  
     }
 
-    IEnumerator Explode() {
+    IEnumerator Explode()
+    {
         var explodePosition = new Vector2(
             player.transform.position.x,
             player.transform.position.y
         );
 
-        GameObject newBlock = Instantiate(
+        var newBlock = Instantiate(
             explosionPrefab,
             explodePosition,
             Quaternion.identity
@@ -52,15 +50,17 @@ public class GameOver : MonoBehaviour
         OnGameOver();
     }
 
-    void OnSquishGameOver() {
+    void OnSquishGameOver()
+    {
         StartCoroutine(Explode());
     }
 
-    void OnGameOver() {
-        gameOverScreen.SetActive (true);
-        gameBackground.SetActive (false);
-        starHolder.SetActive (false);
-        lava.SetActive (false);
+    void OnGameOver()
+    {
+        gameOverScreen.SetActive(true);
+        gameBackground.SetActive(false);
+        starHolder.SetActive(false);
+        lava.SetActive(false);
         score.text = $"{maxHeight}ft";
         gameOver = true;
         camera.transform.position = new Vector3(21.76f, 18.11f, -12.13f);

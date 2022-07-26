@@ -3,25 +3,26 @@ using UnityEngine;
 public class MyCamera : MonoBehaviour
 {
     public Transform player;
-    public bool gameOver = false;
+    public bool gameOver;
 
-    void Start () {
+    void Start()
+    {
         FindObjectOfType<Player>().OnPlayerDeath += OnGameOver;
         FindObjectOfType<Player>().OnPlayerSquishDeath += OnGameOver;
     }
 
     void Update()
     {
-        if (!gameOver) {
+        if (!gameOver)
             transform.position = new Vector3(
                 transform.position.x,
                 player.position.y + 1,
                 transform.position.z
             );
-        }
     }
 
-    void OnGameOver() {
+    void OnGameOver()
+    {
         gameOver = true;
     }
 }
