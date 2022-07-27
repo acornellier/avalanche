@@ -4,7 +4,11 @@ public class FallingBlock : GroundableObject
 {
     [SerializeField] float speed;
 
-    bool _grounded;
+    int _timesGrounded;
+
+    // only freeze after several times grounded
+    // in case block lands on another block that's still falling
+    const int MaxTimesGrounded = 5;
 
     protected override void Start()
     {
@@ -14,16 +18,21 @@ public class FallingBlock : GroundableObject
 
     void Update()
     {
-        if (_grounded)
+        if (_timesGrounded >= MaxTimesGrounded)
             return;
 
-        // body.velocity = new Vector2(0, -speed);
-        transform.Translate(0, -speed * Time.deltaTime, 0);
+        if (IsGrounded())
+        {
+            _timesGrounded += 1;
+            body.velocity = Vector2.zero;
 
-         if (!IsGrounded())
+            if (_timesGrounded >= MaxTimesGrounded)
+                body.constraints = RigidbodyConstraints2D.FreezeAll;
+
             return;
+        }
 
-        _grounded = true;
+        body.velocity = new Vector2(0, -speed);
     }
 
     void SetRandomColor()

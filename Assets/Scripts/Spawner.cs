@@ -79,7 +79,6 @@ public class Spawner : MonoBehaviour
 
     void OnGameOver()
     {
-        print("onGameOver");
         _gameOver = true;
     }
 }
