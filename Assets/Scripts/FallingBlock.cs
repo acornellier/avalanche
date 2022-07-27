@@ -17,6 +17,7 @@ public class FallingBlock : GroundableObject
         if (_grounded)
             return;
 
+        // body.velocity = new Vector2(0, -speed);
         transform.Translate(0, -speed * Time.deltaTime, 0);
 
          if (!IsGrounded())
