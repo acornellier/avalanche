@@ -32,3 +32,11 @@ jobs:
         with:
           name: Build
           path: build
+
+      - uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: html5
+          ITCH_GAME: avalanche
+          ITCH_USER: acornellier
+          PACKAGE: build/WebGL
