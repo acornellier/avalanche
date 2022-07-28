@@ -6,25 +6,22 @@ using UnityEngine;
 public class Player : GroundableObject
 {
     [SerializeField] ParticleSystem explosion;
-    [SerializeField] Collider2D lavaCollider;
+    [SerializeField] AudioSource oneShotAudioSource;
+    [SerializeField] AudioSource statusAudioSource;
     [SerializeField] TMP_Text debugText;
 
-    [Header("Stats")] [SerializeField] float walkSpeed = 10;
-    [SerializeField] float jumpSpeed = 15;
-    [SerializeField] float jumpOffWallSpeed = 10;
-    [SerializeField] float slideSpeed = 3;
-    [SerializeField] float jumpOffWallBufferTime = 0.3f;
-    [SerializeField] float jumpOffWallDuration = 0.2f;
-    [SerializeField] float shrinkRate = 50;
-    [SerializeField] float expandRate = 3;
+    [SerializeField] Stats stats;
+    [SerializeField] Sounds sounds;
 
     Renderer _renderer;
+
     Vector3 _startingScale;
     float _screenHalfWidth;
     float _lastHangingTimestamp;
     int _lastHangingWallDirection;
     float _jumpedOffWallTimestamp;
     float _timeSpentMelting;
+    bool _isMelting;
     bool _isDead;
 
     public event Action OnPlayerDeath;
@@ -33,6 +30,7 @@ public class Player : GroundableObject
     {
         base.Start();
         _renderer = GetComponent<Renderer>();
+        oneShotAudioSource = GetComponent<AudioSource>();
         _screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
         _startingScale = transform.localScale;
     }
@@ -50,7 +48,7 @@ public class Player : GroundableObject
         var newVelocity = body.velocity;
 
         var horizontalInput = Input.GetAxisRaw("Horizontal");
-        var justJumpedOffWall = Time.time - _jumpedOffWallTimestamp < jumpOffWallDuration;
+        var justJumpedOffWall = Time.time - _jumpedOffWallTimestamp < stats.jumpOffWallDuration;
 
         var wallDirection = GetWallDirection();
         var isHanging =
@@ -74,23 +72,28 @@ public class Player : GroundableObject
         if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall)
             newVelocity.x = 0;
         else
-            newVelocity.x = Mathf.Lerp(body.velocity.x, horizontalInput * walkSpeed, 0.05f);
+            newVelocity.x = Mathf.Lerp(body.velocity.x, horizontalInput * stats.walkSpeed, 0.05f);
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (isGrounded)
             {
-                newVelocity.y = jumpSpeed;
+                newVelocity.y = stats.jumpSpeed;
+                oneShotAudioSource.PlayOneShot(sounds.jump);
             }
-            else if (isHanging || Time.time - _lastHangingTimestamp < jumpOffWallBufferTime)
+            else if (isHanging || Time.time - _lastHangingTimestamp < stats.jumpOffWallBufferTime)
             {
-                newVelocity = new Vector2(jumpOffWallSpeed * -_lastHangingWallDirection, jumpSpeed);
+                newVelocity = new Vector2(
+                    stats.jumpOffWallSpeed * -_lastHangingWallDirection,
+                    stats.jumpSpeed
+                );
                 _jumpedOffWallTimestamp = Time.time;
+                oneShotAudioSource.PlayOneShot(sounds.jump);
             }
         }
         else if (isHanging)
         {
-            newVelocity.y = -slideSpeed;
+            newVelocity.y = -stats.slideSpeed;
         }
 
         body.velocity = newVelocity;
@@ -113,7 +116,7 @@ velocity: {body.velocity}";
     void CheckDeath(bool isGrounded, bool isCeilinged)
     {
         // check for lava death
-        if (body.IsTouching(lavaCollider))
+        if (_isMelting)
         {
             if (_timeSpentMelting > 1)
             {
@@ -128,7 +131,7 @@ velocity: {body.velocity}";
         // check for squishing death
         if (isGrounded && isCeilinged)
         {
-            var scaleReduction = shrinkRate * Time.deltaTime * new Vector3(0, -1, 0);
+            var scaleReduction = stats.shrinkRate * Time.deltaTime * new Vector3(0, -1, 0);
             transform.localScale += scaleReduction;
 
             if (transform.localScale.y >= 0.1 * _startingScale.y)
@@ -142,7 +145,7 @@ velocity: {body.velocity}";
         if (transform.localScale.y >= _startingScale.y)
             return;
 
-        var scaleIncrease = expandRate * Time.deltaTime * new Vector3(0, 1, 0);
+        var scaleIncrease = stats.expandRate * Time.deltaTime * new Vector3(0, 1, 0);
         transform.localScale += scaleIncrease;
     }
 
@@ -156,5 +159,44 @@ velocity: {body.velocity}";
         }
 
         OnPlayerDeath?.Invoke();
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        var lava = col.GetComponent<Lava>();
+        if (!lava) return;
+
+        _isMelting = true;
+        statusAudioSource.clip = sounds.sizzle;
+        statusAudioSource.Play();
+    }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        var player = col.GetComponent<Lava>();
+        if (!player) return;
+
+        _isMelting = false;
+        statusAudioSource.Stop();
+    }
+
+    [Serializable]
+    class Stats
+    {
+        public float walkSpeed = 10;
+        public float jumpSpeed = 15;
+        public float jumpOffWallSpeed = 10;
+        public float slideSpeed = 3;
+        public float jumpOffWallBufferTime = 0.3f;
+        public float jumpOffWallDuration = 0.2f;
+        public float shrinkRate = 50;
+        public float expandRate = 3;
+    }
+
+    [Serializable]
+    class Sounds
+    {
+        public AudioClip jump;
+        public AudioClip sizzle;
     }
 }

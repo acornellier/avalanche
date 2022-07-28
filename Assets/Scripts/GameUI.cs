@@ -7,22 +7,20 @@ public class GameUI : MonoBehaviour
     [SerializeField] Text heightText;
     [SerializeField] Transform player;
 
-    float _highscore;
-    float _initialHeight;
-
-    void Start()
-    {
-        _initialHeight = player.position.y;
-    }
+    float _highestPoint;
+    float _lowestPoint;
 
     void Update()
     {
-        var curHeight = Mathf.Round(player.position.y - _initialHeight);
+        if (player.position.y < _lowestPoint)
+            _lowestPoint = player.position.y;
+
+        var curHeight = Mathf.Round(player.position.y - _lowestPoint);
         heightText.text = $"{curHeight}ft";
-        if (player.position.y <= _highscore)
+        if (curHeight <= _highestPoint)
             return;
 
-        _highscore = player.position.y;
-        highscoreText.text = $"{Mathf.Round(_highscore)}ft";
+        _highestPoint = curHeight;
+        highscoreText.text = $"{Mathf.Round(_highestPoint)}ft";
     }
 }
