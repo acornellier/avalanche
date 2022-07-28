@@ -16,7 +16,7 @@ public class FallingBlock : GroundableObject
         SetRandomColor();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (_timesGrounded >= MaxTimesGrounded)
             return;
@@ -37,14 +37,14 @@ public class FallingBlock : GroundableObject
 
     void SetRandomColor()
     {
-        GetComponent<Renderer>().material.color = UnityEngine.Random.Range(0, 6) switch
+        GetComponent<Renderer>().material.color = Random.Range(0, 6) switch
         {
             0 => Color.yellow,
             1 => Color.blue,
             2 => Color.magenta,
             3 => Color.red,
             4 => Color.cyan,
-            _ => Color.green
+            _ => Color.green,
         };
     }
 }

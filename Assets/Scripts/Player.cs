@@ -9,8 +9,7 @@ public class Player : GroundableObject
     [SerializeField] Collider2D lavaCollider;
     [SerializeField] TMP_Text debugText;
 
-    [Header("Stats")]
-    [SerializeField] float walkSpeed = 10;
+    [Header("Stats")] [SerializeField] float walkSpeed = 10;
     [SerializeField] float jumpSpeed = 15;
     [SerializeField] float jumpOffWallSpeed = 10;
     [SerializeField] float slideSpeed = 3;
@@ -23,6 +22,7 @@ public class Player : GroundableObject
     Vector3 _startingScale;
     float _screenHalfWidth;
     float _lastHangingTimestamp;
+    int _lastHangingWallDirection;
     float _jumpedOffWallTimestamp;
     float _timeSpentMelting;
     bool _isDead;
@@ -44,17 +44,13 @@ public class Player : GroundableObject
         var isGrounded = IsGrounded();
         var isCeilinged = IsCeilinged();
 
-        CheckDeath(isGrounded: isGrounded, isCeilinged: isCeilinged);
+        CheckDeath(isGrounded, isCeilinged);
         if (_isDead) return;
 
         var newVelocity = body.velocity;
 
         var horizontalInput = Input.GetAxisRaw("Horizontal");
         var justJumpedOffWall = Time.time - _jumpedOffWallTimestamp < jumpOffWallDuration;
-        // reduce horizontal input briefly after jumping off a wall
-        // this stops the marshmallow from immediately zooming back to the block
-        if (justJumpedOffWall)
-            horizontalInput /= 2;
 
         var wallDirection = GetWallDirection();
         var isHanging =
@@ -67,7 +63,10 @@ public class Player : GroundableObject
             );
 
         if (isHanging)
+        {
             _lastHangingTimestamp = Time.time;
+            _lastHangingWallDirection = wallDirection;
+        }
 
         var nextToWallAndNotPushingAway = wallDirection * horizontalInput > 0;
 
@@ -85,7 +84,7 @@ public class Player : GroundableObject
             }
             else if (isHanging || Time.time - _lastHangingTimestamp < jumpOffWallBufferTime)
             {
-                newVelocity = new Vector2(jumpOffWallSpeed * -wallDirection, jumpSpeed);
+                newVelocity = new Vector2(jumpOffWallSpeed * -_lastHangingWallDirection, jumpSpeed);
                 _jumpedOffWallTimestamp = Time.time;
             }
         }
@@ -145,14 +144,17 @@ velocity: {body.velocity}";
 
         var scaleIncrease = expandRate * Time.deltaTime * new Vector3(0, 1, 0);
         transform.localScale += scaleIncrease;
-
     }
 
     IEnumerator Explode()
     {
         _isDead = true;
         explosion.Play();
-        while (explosion.isPlaying) yield return null;
+        while (explosion.isPlaying)
+        {
+            yield return null;
+        }
+
         OnPlayerDeath?.Invoke();
     }
 }

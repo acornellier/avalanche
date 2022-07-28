@@ -46,7 +46,7 @@ public class GroundableObject : MonoBehaviour
         return false;
     }
 
-    protected float GetWallDirection()
+    protected int GetWallDirection()
     {
         var numHits = boxCollider.Cast(Vector2.left, contactFilter, _hitBuffer, WallEpsilon);
         for (var hitIndex = 0; hitIndex < numHits; hitIndex++)
