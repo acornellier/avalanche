@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class BlockSpawner : MonoBehaviour
 {
     [SerializeField] Player player;
     [SerializeField] GameObject fallingBlockPrefab;
@@ -63,7 +63,11 @@ public class Spawner : MonoBehaviour
             newBlock.transform.parent = blockHolder.transform;
 
             var newCollider = newBlock.GetComponent<BoxCollider2D>();
-            var hits = Physics2D.OverlapBoxAll(newCollider.bounds.center, newCollider.bounds.size, 0);
+            var hits = Physics2D.OverlapBoxAll(
+                newCollider.bounds.center,
+                newCollider.bounds.size,
+                0
+            );
 
             var isColliding = hits.Any(hit => hit != newCollider);
 
