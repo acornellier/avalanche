@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e7106f6c5ec42cdb9023a4380588e1f, type: 3}
+  m_Name: GameSettings
+  m_EditorClassIdentifier: 
+  audioManager:
+    masterMixer: {fileID: 24100000, guid: c3bf15523cebf714aa077ae5c948e005, type: 2}
+    masterGroup: {fileID: 24300002, guid: c3bf15523cebf714aa077ae5c948e005, type: 2}
+    musicGroup: {fileID: 2094515813583064644, guid: c3bf15523cebf714aa077ae5c948e005, type: 2}
+    soundGroup: {fileID: -2821738024444729927, guid: c3bf15523cebf714aa077ae5c948e005, type: 2}
