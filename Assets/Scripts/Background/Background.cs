@@ -3,11 +3,12 @@ using UnityEngine;
 public class Background : MonoBehaviour
 {
     [SerializeField] Transform player;
-    Renderer _rend;
 
     readonly Color _colorStart = Color.white;
     readonly Color _colorMiddle = Color.blue;
     readonly Color _colorEnd = Color.black;
+
+    Renderer _rend;
 
     void Start()
     {

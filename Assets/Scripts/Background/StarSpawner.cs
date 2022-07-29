@@ -1,23 +1,23 @@
 using UnityEngine;
+using Zenject;
 
 public class StarSpawner : MonoBehaviour
 {
-    [SerializeField] Player player;
     [SerializeField] GameObject starPrefab;
     [SerializeField] GameObject starHolder;
+    [SerializeField] Vector2 spawnSizeMinMax;
+
+    [Inject] Player _player;
 
     float _distanceBetweenSpawns = 1;
     float _nextSpawnDistance;
     int _nextStarName;
-
-    public Vector2 spawnSizeMinMax;
 
     Vector2 _screenHalfSizeWorldUnits;
 
     void Start()
     {
         _nextSpawnDistance = 0;
-        player = FindObjectOfType<Player>();
         _screenHalfSizeWorldUnits = new Vector2(
             Camera.main.aspect * Camera.main.orthographicSize,
             Camera.main.orthographicSize
@@ -26,16 +26,16 @@ public class StarSpawner : MonoBehaviour
 
     void Update()
     {
-        if (player == null)
+        if (_player == null)
             return;
 
-        if (player.transform.position.y < _nextSpawnDistance)
+        if (_player.transform.position.y < _nextSpawnDistance)
             return;
 
         _nextSpawnDistance += _distanceBetweenSpawns;
 
         var spawnSize = Random.Range(spawnSizeMinMax.x, spawnSizeMinMax.y);
-        switch (player.transform.position.y)
+        switch (_player.transform.position.y)
         {
             case < 30:
                 spawnSize /= 4;

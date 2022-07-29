@@ -1255,7 +1255,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21bf016f0ba544c4d9364f26f66c58c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 815619324}
+  smoothSpeed: 5
+  colorStart: {r: 0.627451, g: 0.627451, b: 1, a: 1}
+  colorMiddle: {r: 0.30593628, g: 0.30593628, b: 0.5188679, a: 1}
+  colorEnd: {r: 0, g: 0, b: 0, a: 1}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -1266,7 +1269,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.627451, g: 0.627451, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2491,6 +2494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1411580888}
   - {fileID: 416987545}
   - {fileID: 146493414}
   - {fileID: 989354250}
@@ -3420,7 +3424,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1411580885}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -3477,7 +3481,7 @@ Transform:
   m_LocalScale: {x: 29, y: 17.494715, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1824446995}
+  m_Father: {fileID: 961371605}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1437936285
@@ -4677,7 +4681,6 @@ Transform:
   m_Children:
   - {fileID: 1920310895}
   - {fileID: 815619324}
-  - {fileID: 1411580888}
   - {fileID: 1750170643}
   m_Father: {fileID: 0}
   m_RootOrder: 4

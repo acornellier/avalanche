@@ -43,7 +43,9 @@ public class BlockSpawner : MonoBehaviour
             -_screenHalfSizeWorldUnits.x + spawnSize / 2,
             _screenHalfSizeWorldUnits.x - spawnSize / 2
         );
-        var spawnY = _player.transform.position.y + 2 * _screenHalfSizeWorldUnits.y;
+        var spawnY = 2 * _screenHalfSizeWorldUnits.y;
+        if (_player)
+            spawnY += _player.transform.position.y;
 
         for (var i = 0; i < 10; i++)
         {
