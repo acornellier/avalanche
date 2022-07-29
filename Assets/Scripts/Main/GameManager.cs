@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Zenject;
 
 public enum GameState
@@ -8,7 +9,7 @@ public enum GameState
     GameOver,
 }
 
-public class GameManager : IInitializable
+public class GameManager : IInitializable, ITickable
 {
     public GameState state { get; private set; } = GameState.Playing;
 
@@ -21,16 +22,24 @@ public class GameManager : IInitializable
         _player.OnPlayerDeath += OnPlayerDeath;
     }
 
+    public void Tick()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            TogglePause();
+    }
+
     public void TogglePause()
     {
         switch (state)
         {
             case GameState.Playing:
                 state = GameState.Paused;
+                Time.timeScale = 0;
                 OnGamePauseChange?.Invoke(true);
                 break;
             case GameState.Paused:
                 state = GameState.Playing;
+                Time.timeScale = 1;
                 OnGamePauseChange?.Invoke(false);
                 break;
             case GameState.GameOver:

@@ -2,11 +2,10 @@
 using UnityEngine.SceneManagement;
 using Zenject;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : Menu
 {
     [SerializeField] GameObject pausePanel;
     [SerializeField] GameObject pauseMenuUi;
-    [SerializeField] GameObject optionsMenuUi;
 
     [Inject] GameManager _gameManager;
 
@@ -26,21 +25,16 @@ public class PauseMenu : MonoBehaviour
         else ResumeCallback();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            _gameManager.TogglePause();
-    }
-
     void PauseCallback()
     {
+        menuManager.CloseAll();
         pausePanel.SetActive(true);
-        pauseMenuUi.SetActive(true);
-        optionsMenuUi.SetActive(false);
+        menuManager.OpenMenu(pauseMenuUi);
     }
 
     void ResumeCallback()
     {
+        menuManager.CloseAll();
         pausePanel.SetActive(false);
     }
 
@@ -48,12 +42,6 @@ public class PauseMenu : MonoBehaviour
     {
         if (_gameManager.state == GameState.Paused)
             _gameManager.TogglePause();
-    }
-
-    public void Options()
-    {
-        pauseMenuUi.SetActive(false);
-        optionsMenuUi.SetActive(true);
     }
 
     public void MainMenu()

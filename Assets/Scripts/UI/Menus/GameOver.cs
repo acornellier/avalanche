@@ -26,7 +26,7 @@ public class GameOver : MonoBehaviour
     void Update()
     {
         if (_gameManager.state == GameState.GameOver && Input.GetKeyDown(KeyCode.Space))
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Game");
     }
 
     void OnGameOver()

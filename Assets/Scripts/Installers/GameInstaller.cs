@@ -4,6 +4,8 @@ public class GameInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        Container.BindInstance(new MenuManager()).AsSingle();
+
         Container.Bind<Lava>().FromComponentInHierarchy().AsSingle();
         Container.Bind<Player>().FromComponentInHierarchy().AsSingle();
 

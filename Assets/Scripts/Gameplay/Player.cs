@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
 public class Player : GroundableObject
 {
     [SerializeField] ParticleSystem explosion;
@@ -16,6 +17,9 @@ public class Player : GroundableObject
     Renderer _renderer;
 
     Vector3 _startingScale;
+    Vector3 minScale => 0.2f * _startingScale;
+    Vector3 maxScale => 2f * _startingScale;
+
     float _screenHalfWidth;
     float _lastHangingTimestamp;
     int _lastHangingWallDirection;
@@ -23,7 +27,6 @@ public class Player : GroundableObject
     float _timeSpentMelting;
     bool _isInLava;
     bool _isDead;
-    float _lastShrinkTimestamp;
 
     public event Action OnPlayerDeath;
 
@@ -70,10 +73,13 @@ public class Player : GroundableObject
         var nextToWallAndNotPushingAway = wallDirection * horizontalInput > 0;
 
         // fixes sticking to walls if left/right is being held
-        if (nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall)
-            newVelocity.x = 0;
-        else
-            newVelocity.x = Mathf.Lerp(body.velocity.x, horizontalInput * stats.walkSpeed, 0.05f);
+        newVelocity.x = nextToWallAndNotPushingAway && !isGrounded && !justJumpedOffWall
+            ? 0
+            : Mathf.Lerp(
+                body.velocity.x,
+                horizontalInput * stats.walkSpeed,
+                10 * Time.deltaTime
+            );
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -96,6 +102,11 @@ public class Player : GroundableObject
         {
             newVelocity.y = -stats.slideSpeed;
         }
+
+        if (Input.GetKey(KeyCode.Z))
+            StretchHorizontally();
+        else if (Input.GetKey(KeyCode.X))
+            StretchVertically();
 
         body.velocity = newVelocity;
 
@@ -132,29 +143,32 @@ scale.y: {transform.localScale.y}";
 
         // check for squishing death
         if (isGrounded && isCeilinged)
-        {
-            var scaleReduction = stats.shrinkRate * Time.deltaTime * new Vector3(0, -1, 0);
-            transform.localScale += scaleReduction;
-
-            if (transform.localScale.y >= 0.1 * _startingScale.y)
-                return;
-
             StartCoroutine(Explode());
-            return;
-        }
+    }
 
-        // otherwise, increase scale
-        if (transform.localScale.y >= _startingScale.y ||
-            Time.time - _lastShrinkTimestamp < stats.timeBetweenShrinkAndExpand)
+    void StretchHorizontally()
+    {
+        if (transform.localScale.y <= minScale.y)
             return;
 
-        var scaleIncrease = stats.expandRate * Time.deltaTime * new Vector3(0, 1, 0);
+        // var xChange = stats.stretchRate * Time.deltaTime * new Vector3(1, 0, 0);
+        var yChange = stats.stretchRate * Time.deltaTime * new Vector3(1, -1, 0);
+        transform.localScale += yChange;
+    }
+
+    void StretchVertically()
+    {
+        if (transform.localScale.y >= maxScale.y)
+            return;
+
+        var scaleIncrease = stats.stretchRate * Time.deltaTime * new Vector3(-1, 1, 0);
         transform.localScale += scaleIncrease;
     }
 
     IEnumerator Explode()
     {
         _isDead = true;
+        _renderer.enabled = false;
         explosion.Play();
         while (explosion.isPlaying)
         {
@@ -192,9 +206,7 @@ scale.y: {transform.localScale.y}";
         public float slideSpeed = 3;
         public float jumpOffWallBufferTime = 0.3f;
         public float jumpOffWallDuration = 0.2f;
-        public float shrinkRate = 100;
-        public float expandRate = 3;
-        public float timeBetweenShrinkAndExpand = 1f;
+        public float stretchRate = 10;
     }
 
     [Serializable]

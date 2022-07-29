@@ -1,6 +1,5 @@
 using System.Linq;
 using UnityEngine;
-using Zenject;
 
 public class BlockSpawner : MonoBehaviour
 {
@@ -9,15 +8,15 @@ public class BlockSpawner : MonoBehaviour
     [SerializeField] float secondsBetweenSpawns = 1;
     [SerializeField] Vector2 spawnSizeMinMax;
 
-    [Inject] Player _player;
+    Player _player;
+    Vector2 _screenHalfSizeWorldUnits;
 
     float _nextSpawnTime;
     int _nextBlockName;
 
-    Vector2 _screenHalfSizeWorldUnits;
-
     void Start()
     {
+        _player = FindObjectOfType<Player>();
         _screenHalfSizeWorldUnits = new Vector2(
             Camera.main.aspect * Camera.main.orthographicSize,
             Camera.main.orthographicSize
