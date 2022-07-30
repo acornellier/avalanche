@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Player : GroundableObject
 {
     [SerializeField] ParticleSystem explosion;
@@ -14,14 +14,15 @@ public class Player : GroundableObject
 
     [SerializeField] Stats stats;
     [SerializeField] Sounds sounds;
+    [SerializeField] Sprites sprites;
 
     [Inject(Id = "Music")] AudioSource _musicAudioSource;
 
-    Renderer _renderer;
+    SpriteRenderer _renderer;
 
     Vector3 _startingScale;
-    Vector3 minScale => 0.2f * _startingScale;
-    Vector3 maxScale => 2f * _startingScale;
+    Vector3 minScale => stats.stretchMin * _startingScale;
+    Vector3 maxScale => stats.stretchMax * _startingScale;
 
     float _screenHalfWidth;
     float _lastHangingTimestamp;
@@ -36,8 +37,7 @@ public class Player : GroundableObject
     protected override void Start()
     {
         base.Start();
-        _renderer = GetComponent<Renderer>();
-        oneShotAudioSource = GetComponent<AudioSource>();
+        _renderer = GetComponent<SpriteRenderer>();
         _screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
         _startingScale = transform.localScale;
     }
@@ -112,6 +112,11 @@ public class Player : GroundableObject
             StretchVertically();
 
         body.velocity = newVelocity;
+
+        if (body.velocity.x < 0 || (isHanging && wallDirection < 0))
+            _renderer.sprite = sprites.walkLeft;
+        else
+            _renderer.sprite = sprites.idle;
 
         if (body.position.x < -_screenHalfWidth)
             transform.position = new Vector2(_screenHalfWidth, transform.position.y);
@@ -211,6 +216,8 @@ scale.y: {transform.localScale.y}";
         public float jumpOffWallBufferTime = 0.3f;
         public float jumpOffWallDuration = 0.2f;
         public float stretchRate = 10;
+        public float stretchMin = 0.2f;
+        public float stretchMax = 1.8f;
     }
 
     [Serializable]
@@ -219,5 +226,12 @@ scale.y: {transform.localScale.y}";
         public AudioClip jump;
         public AudioClip sizzle;
         public AudioClip gameOver;
+    }
+
+    [Serializable]
+    class Sprites
+    {
+        public Sprite idle;
+        public Sprite walkLeft;
     }
 }
