@@ -10,7 +10,7 @@ public class GroundableObject : MonoBehaviour
 
     readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[8];
     const float GroundEpsilon = 0.05f;
-    const float WallEpsilon = 0.01f;
+    const float WallEpsilon = 0.02f;
 
     protected virtual void Start()
     {

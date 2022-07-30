@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Environment
+    uniqueID: 1699742043
+    locked: 0
+  - name: Player
+    uniqueID: 2163227609
+    locked: 0
+  - name: Blocks
+    uniqueID: 2071111973
+    locked: 0
+  - name: UI
+    uniqueID: 319512429
+    locked: 0

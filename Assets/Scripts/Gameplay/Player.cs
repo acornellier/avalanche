@@ -120,10 +120,7 @@ public class Player : GroundableObject
         else
             _renderer.sprite = sprites.idle;
 
-        if (body.position.x < -_screenHalfWidth)
-            transform.position = new Vector2(_screenHalfWidth, transform.position.y);
-        else if (body.position.x > _screenHalfWidth)
-            transform.position = new Vector2(-_screenHalfWidth, transform.position.y);
+        TeleportAroundEdges();
 
 #if UNITY_EDITOR
         debugText.text = $@"grounded: {isGrounded}
@@ -172,6 +169,15 @@ scale.y: {transform.localScale.y}";
 
         var change = stats.stretchRate * Time.deltaTime * new Vector3(-1, 1, 0);
         transform.localScale += change;
+    }
+
+    void TeleportAroundEdges()
+    {
+        var halfWidth = boxCollider.bounds.size.x / 2 + 1;
+        if (transform.position.x + halfWidth < -_screenHalfWidth)
+            transform.position = new Vector2(_screenHalfWidth, transform.position.y);
+        else if (transform.position.x - halfWidth > _screenHalfWidth)
+            transform.position = new Vector2(-_screenHalfWidth, transform.position.y);
     }
 
     IEnumerator Explode()
