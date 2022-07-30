@@ -38,12 +38,6 @@ public class PauseMenu : Menu
         pausePanel.SetActive(false);
     }
 
-    public void Resume()
-    {
-        if (_gameManager.state == GameState.Paused)
-            _gameManager.TogglePause();
-    }
-
     public void MainMenu()
     {
         SceneManager.LoadScene("StartMenu");

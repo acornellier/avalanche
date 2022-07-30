@@ -9,47 +9,41 @@ public enum GameState
     GameOver,
 }
 
-public class GameManager : IInitializable, ITickable
+public class GameManager : IInitializable
 {
+    [InjectOptional] Player _player;
+    [Inject] public bool isGameScene;
+
     public GameState state { get; private set; } = GameState.Playing;
-
-    [Inject] Player _player;
-
     public event Action<bool> OnGamePauseChange;
 
     public void Initialize()
     {
-        _player.OnPlayerDeath += OnPlayerDeath;
-    }
-
-    public void Tick()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            TogglePause();
-    }
-
-    public void TogglePause()
-    {
-        switch (state)
-        {
-            case GameState.Playing:
-                state = GameState.Paused;
-                Time.timeScale = 0;
-                OnGamePauseChange?.Invoke(true);
-                break;
-            case GameState.Paused:
-                state = GameState.Playing;
-                Time.timeScale = 1;
-                OnGamePauseChange?.Invoke(false);
-                break;
-            case GameState.GameOver:
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        if (_player)
+            _player.OnPlayerDeath += OnPlayerDeath;
     }
 
     void OnPlayerDeath()
     {
-        state = GameState.GameOver;
+        SetState(GameState.GameOver);
+    }
+
+    public void SetState(GameState newState)
+    {
+        if (newState == GameState.Paused)
+        {
+            if (state == GameState.GameOver)
+                return;
+
+            Time.timeScale = 0;
+            OnGamePauseChange?.Invoke(true);
+        }
+        else if (state == GameState.Paused)
+        {
+            Time.timeScale = 1;
+            OnGamePauseChange?.Invoke(false);
+        }
+
+        state = newState;
     }
 }

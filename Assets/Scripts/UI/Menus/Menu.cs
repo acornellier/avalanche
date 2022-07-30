@@ -5,6 +5,11 @@ public class Menu : MonoBehaviour
 {
     [Inject] protected MenuManager menuManager;
 
+    public void GoBackOrResume()
+    {
+        menuManager.GoBackOrResume();
+    }
+
     public void GoBack()
     {
         menuManager.GoBack();

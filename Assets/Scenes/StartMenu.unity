@@ -1759,26 +1759,9 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 960324556}
     m_Modifications:
-    - target: {fileID: 2086390741066995519, guid: 5c5452651ea08f547845bb51b4d38dad, type: 3}
-      propertyPath: m_text
-      value: 'Move: left/right arrow keys
-
-        Jump: up arrow key
-
-        Flatten:
-        Z
-
-        Extend: X
-
-        Escape: Pause'
-      objectReference: {fileID: 0}
     - target: {fileID: 2086390742270623156, guid: 5c5452651ea08f547845bb51b4d38dad, type: 3}
       propertyPath: m_Name
       value: HelpMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 2086390742270623156, guid: 5c5452651ea08f547845bb51b4d38dad, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2086390742270623163, guid: 5c5452651ea08f547845bb51b4d38dad, type: 3}
       propertyPath: m_Pivot.x
