@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Renderer))]
 public class Player : GroundableObject
@@ -13,6 +14,8 @@ public class Player : GroundableObject
 
     [SerializeField] Stats stats;
     [SerializeField] Sounds sounds;
+
+    [Inject(Id = "Music")] AudioSource _musicAudioSource;
 
     Renderer _renderer;
 
@@ -151,9 +154,8 @@ scale.y: {transform.localScale.y}";
         if (transform.localScale.y <= minScale.y)
             return;
 
-        // var xChange = stats.stretchRate * Time.deltaTime * new Vector3(1, 0, 0);
-        var yChange = stats.stretchRate * Time.deltaTime * new Vector3(1, -1, 0);
-        transform.localScale += yChange;
+        var change = stats.stretchRate * Time.deltaTime * new Vector3(1, -1, 0);
+        transform.localScale += change;
     }
 
     void StretchVertically()
@@ -161,13 +163,15 @@ scale.y: {transform.localScale.y}";
         if (transform.localScale.y >= maxScale.y)
             return;
 
-        var scaleIncrease = stats.stretchRate * Time.deltaTime * new Vector3(-1, 1, 0);
-        transform.localScale += scaleIncrease;
+        var change = stats.stretchRate * Time.deltaTime * new Vector3(-1, 1, 0);
+        transform.localScale += change;
     }
 
     IEnumerator Explode()
     {
         _isDead = true;
+        _musicAudioSource.clip = sounds.gameOver;
+        _musicAudioSource.Play();
         _renderer.enabled = false;
         explosion.Play();
         while (explosion.isPlaying)
@@ -214,5 +218,6 @@ scale.y: {transform.localScale.y}";
     {
         public AudioClip jump;
         public AudioClip sizzle;
+        public AudioClip gameOver;
     }
 }
