@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: eb7498b0ca28e3d4a8c09da430a96e51
+guid: 6da7b562d48cacc4ab26969722291230
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Cute Koala
+  - Caveat Brush
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

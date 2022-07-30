@@ -1,11 +1,11 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 public class GameUI : MonoBehaviour
 {
-    [SerializeField] Text highscoreText;
-    [SerializeField] Text heightText;
+    [SerializeField] TMP_Text highscoreText;
+    [SerializeField] TMP_Text heightText;
 
     [Inject] HeightTracker _heightTracker;
 

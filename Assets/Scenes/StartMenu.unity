@@ -584,7 +584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &671656793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -744,26 +744,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 197083968}
     m_Modifications:
-    - target: {fileID: 4527891159786161960, guid: 35a9974874cbae74db02381da60c8137, type: 3}
-      propertyPath: m_text
-      value: PLAY
-      objectReference: {fileID: 0}
     - target: {fileID: 4527891161303495788, guid: 35a9974874cbae74db02381da60c8137, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1362686032}
-    - target: {fileID: 4527891161303495788, guid: 35a9974874cbae74db02381da60c8137, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 4527891161303495788, guid: 35a9974874cbae74db02381da60c8137, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: StartMenu, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4527891161303495788, guid: 35a9974874cbae74db02381da60c8137, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 4527891161303495790, guid: 35a9974874cbae74db02381da60c8137, type: 3}
       propertyPath: m_Name
       value: PlayButton
@@ -915,22 +899,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 960324556}
     m_Modifications:
-    - target: {fileID: 3437653302520142049, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3437653302520142049, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3437653302849009539, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3437653302849009539, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3437653303053752027, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1018,18 +986,6 @@ PrefabInstance:
     - target: {fileID: 3437653303053752028, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
       propertyPath: m_Name
       value: OptionsUi
-      objectReference: {fileID: 0}
-    - target: {fileID: 3437653303053752028, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3437653304302022990, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3437653304302022990, guid: 4a52f817f0794dc40bb4cb96cc7b372a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -1417,8 +1373,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: AVALANCHE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 25d1e8495d2df7e44bb144214e910650, type: 2}
+  m_sharedMaterial: {fileID: -4433294648238886884, guid: 25d1e8495d2df7e44bb144214e910650, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1442,7 +1398,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.3
+  m_fontSize: 63.1
   m_fontSizeBase: 84
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1759,6 +1715,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 960324556}
     m_Modifications:
+    - target: {fileID: 2086390741117495109, guid: 5c5452651ea08f547845bb51b4d38dad, type: 3}
+      propertyPath: m_text
+      value: BACK
+      objectReference: {fileID: 0}
     - target: {fileID: 2086390742270623156, guid: 5c5452651ea08f547845bb51b4d38dad, type: 3}
       propertyPath: m_Name
       value: HelpMenu

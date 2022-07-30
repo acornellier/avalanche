@@ -19,6 +19,7 @@ public class GameManager : IInitializable
 
     public void Initialize()
     {
+        Time.timeScale = 1;
         if (_player)
             _player.OnPlayerDeath += OnPlayerDeath;
     }

@@ -1,13 +1,13 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Zenject;
 
 public class GameOver : MonoBehaviour
 {
     [SerializeField] GameObject gameplay;
     [SerializeField] GameObject gameOverUi;
-    [SerializeField] Text score;
+    [SerializeField] TMP_Text score;
 
     [Inject] Player _player;
     [Inject] HeightTracker _heightTracker;
