@@ -115,6 +115,8 @@ public class Player : GroundableObject
 
         if (body.velocity.x < 0 || (isHanging && wallDirection < 0))
             _renderer.sprite = sprites.walkLeft;
+        else if (body.velocity.x > 0 || (isHanging && wallDirection > 0))
+            _renderer.sprite = sprites.walkRight;
         else
             _renderer.sprite = sprites.idle;
 
@@ -233,5 +235,6 @@ scale.y: {transform.localScale.y}";
     {
         public Sprite idle;
         public Sprite walkLeft;
+        public Sprite walkRight;
     }
 }
