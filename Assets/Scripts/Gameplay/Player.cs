@@ -1,29 +1,33 @@
 using System;
 using System.Collections;
+using Animancer;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer), typeof(AnimancerComponent))]
 public class Player : GroundableObject
 {
     [SerializeField] ParticleSystem explosion;
+    [SerializeField] ParticleSystem burning;
     [SerializeField] AudioSource oneShotAudioSource;
     [SerializeField] AudioSource statusAudioSource;
     [SerializeField] TMP_Text debugText;
 
     [SerializeField] Stats stats;
+    [SerializeField] AnimationClips clips;
     [SerializeField] Sounds sounds;
 
     [Inject(Id = "Music")] AudioSource _musicAudioSource;
 
     SpriteRenderer _renderer;
-    Animator _animator;
+    AnimancerComponent _animancer;
 
     Vector3 _startingScale;
     Vector3 minScale => stats.stretchMin * _startingScale;
     Vector3 maxScale => stats.stretchMax * _startingScale;
 
+    State _state = State.None;
     float _screenHalfWidth;
     float _lastHangingTimestamp;
     int _lastHangingWallDirection;
@@ -35,18 +39,12 @@ public class Player : GroundableObject
     bool _isCeilinged;
     int _wallDirection;
 
-    static readonly int SpeedX = Animator.StringToHash("SpeedX");
-    static readonly int SpeedY = Animator.StringToHash("SpeedY");
-    static readonly int Grounded = Animator.StringToHash("Grounded");
-    static readonly int Jump = Animator.StringToHash("Jump");
-
     public event Action OnPlayerDeath;
 
-    protected override void Start()
+    protected void Awake()
     {
-        base.Start();
         _renderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+        _animancer = GetComponent<AnimancerComponent>();
         _screenHalfWidth = Camera.main.aspect * Camera.main.orthographicSize;
         _startingScale = transform.localScale;
     }
@@ -76,9 +74,17 @@ public class Player : GroundableObject
 
     void UpdateAnimator()
     {
-        _animator.SetBool(Grounded, _isGrounded);
-        _animator.SetFloat(SpeedX, Math.Abs(body.velocity.x));
-        _animator.SetFloat(SpeedY, Math.Abs(body.velocity.y));
+        if (_state == State.Airborne && _isGrounded)
+            _state = State.None;
+
+        if (_state != State.None) return;
+
+        if (_isInLava)
+            _animancer.Play(clips.sad);
+        else if (Math.Abs(body.velocity.x) > 0.1)
+            _animancer.Play(clips.walk);
+        else
+            _animancer.Play(clips.idle);
     }
 
     void UpdateVelocity(float horizontalInput)
@@ -110,10 +116,6 @@ public class Player : GroundableObject
             newVelocity.y = -stats.slideSpeed;
 
         body.velocity = newVelocity;
-
-#if UNITY_EDITOR
-        UpdateDebugText();
-#endif
     }
 
     bool IsHanging(float horizontalInput)
@@ -166,7 +168,13 @@ public class Player : GroundableObject
         if (jumping)
         {
             oneShotAudioSource.PlayOneShot(sounds.jump);
-            _animator.SetTrigger(Jump);
+            _state = State.Jumping;
+            var animancerState = _animancer.Play(clips.jump);
+            animancerState.Events.OnEnd = () =>
+            {
+                _state = State.Airborne;
+                _animancer.Play(clips.airborne);
+            };
         }
 
         return newVelocity;
@@ -184,8 +192,7 @@ ceilinged: {IsCeilinged()}
 hanging: {isHanging}
 justJumpedOffWall: {justJumpedOffWall}
 wallDirection: {_wallDirection}
-velocity: {body.velocity}
-scale: {transform.localScale}";
+velocity: {body.velocity}";
     }
 #endif
 
@@ -194,6 +201,7 @@ scale: {transform.localScale}";
         // check for squishing death
         if (_isGrounded && _isCeilinged)
         {
+            Die();
             StartCoroutine(Explode());
             return;
         }
@@ -203,7 +211,8 @@ scale: {transform.localScale}";
         {
             if (_timeSpentMelting > 1)
             {
-                StartCoroutine(Explode());
+                Die();
+                Melt();
                 return;
             }
 
@@ -241,11 +250,15 @@ scale: {transform.localScale}";
             transform.position = new Vector2(-_screenHalfWidth, transform.position.y);
     }
 
-    IEnumerator Explode()
+    void Die()
     {
         _isDead = true;
         _musicAudioSource.clip = sounds.gameOver;
         _musicAudioSource.Play();
+    }
+
+    IEnumerator Explode()
+    {
         _renderer.enabled = false;
         explosion.Play();
         while (explosion.isPlaying)
@@ -256,23 +269,40 @@ scale: {transform.localScale}";
         OnPlayerDeath?.Invoke();
     }
 
+    void Melt()
+    {
+        _state = State.Melting;
+        var animancerState = _animancer.Play(clips.melt);
+        animancerState.Events.OnEnd = () => OnPlayerDeath?.Invoke();
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         var lava = col.GetComponent<Lava>();
         if (!lava) return;
 
         _isInLava = true;
+        burning.Play();
         statusAudioSource.clip = sounds.sizzle;
         statusAudioSource.Play();
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        var player = col.GetComponent<Lava>();
-        if (!player) return;
+        var lava = col.GetComponent<Lava>();
+        if (!lava) return;
 
         _isInLava = false;
+        burning.Stop();
         statusAudioSource.Stop();
+    }
+
+    enum State
+    {
+        None,
+        Jumping,
+        Airborne,
+        Melting,
     }
 
     [Serializable]
@@ -295,5 +325,16 @@ scale: {transform.localScale}";
         public AudioClip jump;
         public AudioClip sizzle;
         public AudioClip gameOver;
+    }
+
+    [Serializable]
+    struct AnimationClips
+    {
+        public AnimationClip idle;
+        public AnimationClip walk;
+        public AnimationClip jump;
+        public AnimationClip airborne;
+        public AnimationClip sad;
+        public AnimationClip melt;
     }
 }
