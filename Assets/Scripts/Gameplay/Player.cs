@@ -81,7 +81,7 @@ public class Player : GroundableObject
 
         if (_isInLava)
             _animancer.Play(clips.sad);
-        else if (Math.Abs(body.velocity.x) > 0.1)
+        else if (Mathf.Abs(body.velocity.x) > 0.1)
             _animancer.Play(clips.walk);
         else
             _animancer.Play(clips.idle);
@@ -226,7 +226,7 @@ velocity: {body.velocity}";
         if (transform.localScale.y <= minScale.y)
             return;
 
-        var signOfX = Math.Sign(transform.localScale.x);
+        var signOfX = Mathf.Sign(transform.localScale.x);
         var change = stats.stretchRate * Time.deltaTime * new Vector3(1 * signOfX, -1, 0);
         transform.localScale += change;
     }
@@ -236,7 +236,7 @@ velocity: {body.velocity}";
         if (transform.localScale.y >= maxScale.y)
             return;
 
-        var signOfX = Math.Sign(transform.localScale.x);
+        var signOfX = Mathf.Sign(transform.localScale.x);
         var change = stats.stretchRate * Time.deltaTime * new Vector3(-1 * signOfX, 1, 0);
         transform.localScale += change;
     }

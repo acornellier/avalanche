@@ -4,7 +4,7 @@ public class GroundableObject : MonoBehaviour
 {
     [SerializeField] protected LayerMask jumpableMask;
 
-    protected BoxCollider2D boxCollider;
+    public BoxCollider2D boxCollider;
     protected ContactFilter2D contactFilter;
     protected Rigidbody2D body;
 
