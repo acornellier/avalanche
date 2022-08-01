@@ -1197,6 +1197,7 @@ GameObject:
   - component: {fileID: 815619322}
   - component: {fileID: 815619325}
   - component: {fileID: 815619326}
+  - component: {fileID: 815619327}
   m_Layer: 2
   m_Name: Marshmallow
   m_TagString: Untagged
@@ -1284,10 +1285,6 @@ MonoBehaviour:
     jump: {fileID: 8300000, guid: bdac28e2994ebee4d83ffe0d0c66da36, type: 3}
     sizzle: {fileID: 8300000, guid: 4f42d38d554f3144795792e9f5f096f1, type: 3}
     gameOver: {fileID: 8300000, guid: 5fa1377ebccfa34409a4993ddec97df7, type: 3}
-  sprites:
-    idle: {fileID: 294660006, guid: 8a4df956e09236948ada0e90c4f962ea, type: 3}
-    walkLeft: {fileID: -442688782, guid: 8a4df956e09236948ada0e90c4f962ea, type: 3}
-    walkRight: {fileID: 1484963587, guid: 8a4df956e09236948ada0e90c4f962ea, type: 3}
 --- !u!212 &815619322
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1548,6 +1545,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &815619327
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815619318}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6fca4064033be0f44aaf428d72720574, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &839962520
 GameObject:
   m_ObjectHideFlags: 0
