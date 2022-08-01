@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class Lava : MonoBehaviour
 {
     [SerializeField] float speed = 1;
@@ -10,11 +10,11 @@ public class Lava : MonoBehaviour
 
     [Inject] Player _player;
 
-    BoxCollider2D _collider;
+    Collider2D _collider;
 
     void Awake()
     {
-        _collider = GetComponent<BoxCollider2D>();
+        _collider = GetComponent<Collider2D>();
     }
 
     void Update()
