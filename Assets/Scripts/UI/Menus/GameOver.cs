@@ -5,11 +5,12 @@ using Zenject;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] GameObject gameplay;
     [SerializeField] GameObject gameOverUi;
     [SerializeField] TMP_Text score;
 
     [Inject] Player _player;
+    [Inject] Lava _lava;
+    [Inject] BlockSpawner _blockSpawner;
     [Inject] HeightTracker _heightTracker;
     [Inject] GameManager _gameManager;
 
@@ -32,7 +33,8 @@ public class GameOver : MonoBehaviour
     void OnGameOver()
     {
         gameOverUi.SetActive(true);
-        gameplay.SetActive(false);
+        _lava.gameObject.SetActive(false);
+        _blockSpawner.gameObject.SetActive(false);
 
         score.text = $"{_heightTracker.maxHeight}ft";
 

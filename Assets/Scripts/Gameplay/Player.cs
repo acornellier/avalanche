@@ -155,7 +155,8 @@ public class Player : GroundableObject
             jumping = true;
             newVelocity.y = stats.jumpSpeed;
         }
-        else if (isHanging || Time.time - _lastHangingTimestamp < stats.jumpOffWallBufferTime)
+        else if (isHanging || (Time.time - _lastHangingTimestamp < stats.jumpOffWallBufferTime &&
+                               _state != State.Jumping))
         {
             jumping = true;
             newVelocity = new Vector2(
