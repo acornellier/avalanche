@@ -8033,7 +8033,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.39, z: -1}
+  m_LocalPosition: {x: 0, y: 29.1, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8315,6 +8315,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highscoreText: {fileID: 1768026389}
   heightText: {fileID: 1569656467}
+  initialFadeInDelay: 1
+  fadeRate: 2
 --- !u!1 &741049166
 GameObject:
   m_ObjectHideFlags: 0
@@ -23849,7 +23851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1014236613
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25309,6 +25311,7 @@ MonoBehaviour:
   fallingBlockPrefab: {fileID: 6801432423462587440, guid: 508829a14bcb64c7aba757691c273f47, type: 3}
   blockHolder: {fileID: 416987544}
   secondsBetweenSpawns: 0.6
+  initialSpawnDelay: 2
   spawnSizeMinMax: {x: 0.5, y: 0.9}
 --- !u!1 &1926738588
 GameObject:

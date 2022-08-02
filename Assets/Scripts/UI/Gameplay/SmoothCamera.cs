@@ -44,7 +44,7 @@ public class SmoothCamera : MonoBehaviour
         var smoothedPosition = Vector3.Lerp(
             transform.position,
             desiredPosition,
-            smoothSpeed * Time.deltaTime
+            smoothSpeed / 2 * Time.deltaTime
         );
 
         transform.position = smoothedPosition;

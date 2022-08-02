@@ -1,22 +1,24 @@
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class BlockSpawner : MonoBehaviour
 {
     [SerializeField] GameObject fallingBlockPrefab;
     [SerializeField] GameObject blockHolder;
     [SerializeField] float secondsBetweenSpawns = 1;
+    [SerializeField] float initialSpawnDelay;
     [SerializeField] Vector2 spawnSizeMinMax;
 
-    Player _player;
-    Vector2 _screenHalfSizeWorldUnits;
+    [InjectOptional] Player _player;
 
+    Vector2 _screenHalfSizeWorldUnits;
     float _nextSpawnTime;
     int _nextBlockName;
 
     void Start()
     {
-        _player = FindObjectOfType<Player>();
+        _nextSpawnTime = Time.time + initialSpawnDelay;
         _screenHalfSizeWorldUnits = new Vector2(
             Camera.main.aspect * Camera.main.orthographicSize,
             Camera.main.orthographicSize
@@ -42,7 +44,7 @@ public class BlockSpawner : MonoBehaviour
             -_screenHalfSizeWorldUnits.x + spawnSize / 2,
             _screenHalfSizeWorldUnits.x - spawnSize / 2
         );
-        var spawnY = 2 * _screenHalfSizeWorldUnits.y;
+        var spawnY = 1.5f * _screenHalfSizeWorldUnits.y;
         if (_player)
             spawnY += _player.transform.position.y;
 
